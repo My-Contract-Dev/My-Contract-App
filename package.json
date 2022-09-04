@@ -35,6 +35,13 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/react-native": "^0.69.6",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.5",
+    "prettier": "2.7.1",
     "rn-nodeify": "^10.3.0",
     "typescript": "^4.8.2"
   },

@@ -1,14 +1,13 @@
 import './global';
 
 import { NavigationContainer } from '@react-navigation/native';
-import * as React from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text } from "react-native";
+import * as React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
 import * as Linking from 'expo-linking';
-import WalletConnectProvider from "@walletconnect/react-native-dapp";
+import WalletConnectProvider from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ConnectButton from "./src/components/ConnectButton";
-
+import ConnectButton from './src/components/ConnectButton';
 
 export default function App() {
   return (
@@ -16,7 +15,7 @@ export default function App() {
       <WalletConnectProvider
         redirectUrl={Linking.createURL('/')}
         storageOptions={{
-          asyncStorage: AsyncStorage as any
+          asyncStorage: AsyncStorage as never,
         }}
       >
         <View style={styles.container}>
@@ -31,8 +30,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
