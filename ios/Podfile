@@ -13,10 +13,10 @@ install! 'cocoapods',
 
 target 'MyContractApp' do
   use_expo_modules!
-  use_frameworks!
   config = use_native_modules!
 
-  # pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
 
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
 
