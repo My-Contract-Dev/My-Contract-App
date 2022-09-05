@@ -1,4 +1,5 @@
 import './global';
+import 'expo-dev-client';
 
 import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
