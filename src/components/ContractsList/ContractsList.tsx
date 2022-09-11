@@ -4,7 +4,8 @@ import GlobalHeader from '../GlobalHeader';
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Text } from 'react-native-ui-lib';
 import { useCallback, useState } from 'react';
-import { SuperScroll } from '../SuperScroll';
+import SuperScroll from '../SuperScroll';
+import { StyleSheet } from 'react-native';
 
 export const ContractsList: React.FC = () => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
@@ -28,6 +29,7 @@ export const ContractsList: React.FC = () => {
       bottomSheetChildren={(bsStyle) => (
         <BottomSheetFlatList
           style={bsStyle}
+          contentContainerStyle={styles.scroll}
           data={contracts}
           scrollEnabled={bottomSheetOpen}
           keyExtractor={(c) => [c.address, c.chainId].join('-')}
@@ -39,3 +41,9 @@ export const ContractsList: React.FC = () => {
     </SuperScroll>
   );
 };
+
+const styles = StyleSheet.create({
+  scroll: {
+    backgroundColor: 'red',
+  },
+});

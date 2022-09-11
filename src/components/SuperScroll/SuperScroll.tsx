@@ -1,7 +1,8 @@
 import { StyleProp, StyleSheet, View } from 'react-native';
+import Animated, { interpolateColor } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetProps } from '@gorhom/bottom-sheet';
 import { useEffect, useRef, useState } from 'react';
-import { useDimensions } from '../hooks/useDimensions';
+import { useDimensions } from '../../hooks/useDimensions';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import {
   AnimateStyle,
@@ -9,6 +10,9 @@ import {
   useSharedValue,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import divider from './divider.svg';
+import { SvgXml } from 'react-native-svg';
 
 type SuperScrollProps = {
   children: React.ReactNode;
@@ -34,11 +38,19 @@ export const SuperScroll: React.FC<SuperScrollProps> = ({
     setInitialSnapPoint(dimensions.screen.height - headerSize - 20);
   }, [headerSize, dimensions]);
 
-  const animatedStyles = useAnimatedStyle(() => {
+  const containerStyle = useAnimatedStyle(() => {
     return {
-      paddingTop: animationPosition.value * safeArea.top,
+      paddingTop: 16 + animationPosition.value * safeArea.top,
     };
   }, [safeArea.top]);
+
+  const handlerStyles = useAnimatedStyle(() => ({
+    backgroundColor: interpolateColor(
+      animationPosition.value,
+      [0, 1],
+      ['#FFFFFF00', '#FFFFFF']
+    ),
+  }));
 
   return (
     <View style={styles.container}>
@@ -50,17 +62,20 @@ export const SuperScroll: React.FC<SuperScrollProps> = ({
         {children}
       </View>
       <BottomSheet
-        // animatedPosition={animationPosition}
         animatedIndex={animationPosition}
         {...bottomSheetProps}
         ref={(current) => (bsRef.current = current ?? undefined)}
-        handleComponent={() => <View />}
+        handleComponent={() => (
+          <Animated.View style={[handlerStyles]}>
+            <SvgXml xml={divider} />
+          </Animated.View>
+        )}
         snapPoints={[initialSnapPoint, '100%']}
         backgroundComponent={({ style }) => (
           <View style={[styles.bottomSheet, style]} />
         )}
       >
-        {bottomSheetChildren(animatedStyles)}
+        {bottomSheetChildren(containerStyle)}
       </BottomSheet>
     </View>
   );
@@ -72,6 +87,7 @@ const styles = StyleSheet.create({
   },
   bottomSheet: {
     borderRadius: 0,
+    marginTop: 18,
     backgroundColor: '#fff',
   },
 });
