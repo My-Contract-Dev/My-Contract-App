@@ -1,9 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { ContractInterface } from '../../models';
 
-export const ContractListItem: React.FC = () => {
+interface ContractListItemProps {
+  contract: ContractInterface;
+}
+
+export const ContractListItem: React.FC<ContractListItemProps> = ({
+  contract,
+}) => {
   return (
     <View style={styles.container}>
-      <Text>ContractListItem</Text>
+      <Text>{contract.address}</Text>
     </View>
   );
 };

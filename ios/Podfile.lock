@@ -88,6 +88,8 @@ PODS:
     - expo-dev-menu/SafeAreaView
   - ExpoKeepAwake (10.2.0):
     - ExpoModulesCore
+  - ExpoLinearGradient (11.4.0):
+    - ExpoModulesCore
   - ExpoModulesCore (0.11.5):
     - React-Core
     - ReactCommon/turbomodule/core
@@ -516,6 +518,7 @@ DEPENDENCIES:
   - expo-dev-menu (from `../node_modules/expo-dev-menu`)
   - expo-dev-menu-interface (from `../node_modules/expo-dev-menu-interface/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
+  - ExpoLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
   - EXUpdatesInterface (from `../node_modules/expo-updates-interface/ios`)
@@ -606,6 +609,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-dev-menu-interface/ios"
   ExpoKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
+  ExpoLinearGradient:
+    :path: "../node_modules/expo-linear-gradient/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core/ios"
   EXSplashScreen:
@@ -708,6 +713,7 @@ SPEC CHECKSUMS:
   expo-dev-menu: ab1e9353dbc761d5b62b1fc909f38e866857feba
   expo-dev-menu-interface: 27047461614aee1dc082cacc0e0f5b4c7b8edd1b
   ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320
+  ExpoLinearGradient: 1a3af07c6dab3c612967a294836df9ae717431df
   ExpoModulesCore: 5a973701f4400d70254bc836305228731c829010
   EXSplashScreen: 799bece80089219b2c989c1082d70f3b00995cda
   EXUpdatesInterface: 2bbc11815dfa2ec3fc02e5534c7592c6b42b5327

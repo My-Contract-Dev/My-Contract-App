@@ -25,6 +25,7 @@ module.exports = {
     semi: ['error', 'always'],
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 0,
+    'react/prop-types': 0,
   },
   settings: {
     react: {

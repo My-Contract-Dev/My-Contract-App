@@ -1,16 +1,10 @@
-import { SafeAreaView, StyleSheet } from 'react-native';
 import { ContractsList } from '../../components/ContractsList';
+import ScreenWrapper from '../../components/ScreenWrapper';
 
 export const ContractsListScreen: React.FC = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <ScreenWrapper>
       <ContractsList />
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
