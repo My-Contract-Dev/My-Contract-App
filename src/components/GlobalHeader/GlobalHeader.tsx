@@ -55,7 +55,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ ...props }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 24,
     marginTop: 20,
   },
   mainMetric: {

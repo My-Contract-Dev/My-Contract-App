@@ -3,6 +3,7 @@ import '@ethersproject/shims';
 import 'expo-dev-client';
 import './src/theme';
 
+import React from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Linking from 'expo-linking';

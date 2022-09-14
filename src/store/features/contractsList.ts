@@ -9,10 +9,27 @@ const initialState: ContractsListState = {
   contracts: [
     {
       address: '0x961f9b1d87f44e5956cbf2cf5e8495b8c391e646',
+      name: 'TransferSafe_Router',
       chainId: 9001,
     },
     {
       address: '0x720035b1417f9f9dea4097b578d30c373cd3dd04',
+      chainId: 9001,
+    },
+    {
+      address: '0x720035b1417f9f9dea4097b578d30c373cd3dd05',
+      chainId: 9001,
+    },
+    {
+      address: '0x720035b1417f9f9dea4097b578d30c373cd3dd06',
+      chainId: 9001,
+    },
+    {
+      address: '0x720035b1417f9f9dea4097b578d30c373cd3dd07',
+      chainId: 9001,
+    },
+    {
+      address: '0x720035b1417f9f9dea4097b578d30c373cd3dd08',
       chainId: 9001,
     },
   ],
@@ -28,8 +45,8 @@ const contractsListSlice = createSlice({
     removeContract: (state, action: PayloadAction<ContractInterface>) => {
       state.contracts = state.contracts.filter(
         (contract) =>
-          contract.address !== action.payload.address &&
-          contract.chainId !== contract.chainId
+          contract.address !== action.payload.address ||
+          contract.chainId !== action.payload.chainId
       );
     },
   },

@@ -10,6 +10,8 @@ enum FontFamilies {
 Colors.loadColors({
   primary: '#4E2F75',
   primaryLight: '#8265A7',
+  disabled: '#808080',
+  red: '#FF0000',
 });
 
 const defaultTextStyles: TextStyle = {
@@ -25,6 +27,10 @@ Typography.loadTypographies({
     ...defaultTextStyles,
     fontSize: 40,
   },
+  subtitle: {
+    ...defaultTextStyles,
+    fontSize: 20,
+  },
   body: {
     ...defaultTextStyles,
     fontFamily: FontFamilies.regular,
@@ -33,6 +39,10 @@ Typography.loadTypographies({
   caption: {
     ...defaultTextStyles,
     fontSize: 14,
+  },
+  smallCaption: {
+    ...defaultTextStyles,
+    fontSize: 8,
   },
   bold: {
     ...defaultTextStyles,

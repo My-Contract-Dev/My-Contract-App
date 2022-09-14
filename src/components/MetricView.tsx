@@ -27,7 +27,7 @@ const MetricView: React.FC<MetricViewProps> = ({
           h2: size === 'medium',
           bold: size === 'big',
           medium: size === 'medium',
-          primaryLight: size !== 'big',
+          // primaryLight: size !== 'big',
         }}
       >
         {[units, formatNumber(value, { compact })].filter(Boolean).join(' ')}

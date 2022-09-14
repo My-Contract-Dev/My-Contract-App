@@ -2,10 +2,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import GlobalHeader from '../GlobalHeader';
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
-import { Text } from 'react-native-ui-lib';
+import { Button, View } from 'react-native-ui-lib';
 import { useCallback, useState } from 'react';
 import SuperScroll from '../SuperScroll';
 import { StyleSheet } from 'react-native';
+import { ContractListItem } from './ContractListItem';
 
 export const ContractsList: React.FC = () => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
@@ -29,11 +30,17 @@ export const ContractsList: React.FC = () => {
       bottomSheetChildren={(bsStyle) => (
         <BottomSheetFlatList
           style={bsStyle}
-          contentContainerStyle={styles.scroll}
+          contentContainerStyle={styles.listContainer}
           data={contracts}
+          ItemSeparatorComponent={() => <View marginB-12 />}
           scrollEnabled={bottomSheetOpen}
           keyExtractor={(c) => [c.address, c.chainId].join('-')}
-          renderItem={({ item }) => <Text>{item.address}</Text>}
+          renderItem={({ item }) => <ContractListItem contract={item} />}
+          ListFooterComponent={() => (
+            <View marginT-16 paddingH-24>
+              <Button outline label="Add contract" size={Button.sizes.large} />
+            </View>
+          )}
         />
       )}
     >
@@ -43,7 +50,5 @@ export const ContractsList: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  scroll: {
-    backgroundColor: 'red',
-  },
+  listContainer: {},
 });

@@ -17,7 +17,7 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({ children }) => {
         y: 0.6,
       }}
       style={styles.container}
-      colors={['#FDDED5', '#FFF5E8']}
+      colors={['#E4E4E4', '#E4CEB0']}
     >
       {children}
     </LinearGradient>
