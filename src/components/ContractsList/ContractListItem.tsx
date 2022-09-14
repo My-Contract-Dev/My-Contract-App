@@ -11,10 +11,12 @@ import { formatHash } from '../../utils/formatHash';
 
 interface ContractListItemProps {
   contract: ContractInterface;
+  onClick: () => void;
 }
 
 export const ContractListItem: React.FC<ContractListItemProps> = ({
   contract,
+  onClick,
 }) => {
   const dispatch = useDispatch();
   const address = useMemo(
@@ -74,7 +76,11 @@ export const ContractListItem: React.FC<ContractListItemProps> = ({
 
   return (
     <Swipeable renderRightActions={renderDeleteButton}>
-      <TouchableOpacity activeOpacity={0.75} style={styles.container}>
+      <TouchableOpacity
+        onPress={onClick}
+        activeOpacity={0.75}
+        style={styles.container}
+      >
         <View
           style={[
             styles.avatar,
@@ -118,7 +124,7 @@ const styles = StyleSheet.create({
     height: 48,
     width: 48,
     borderRadius: 48,
-    shadowRadius: 6,
+    shadowRadius: 4,
     shadowColor: 'black',
     shadowOpacity: 0.2,
     alignItems: 'center',

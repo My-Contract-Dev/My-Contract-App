@@ -10,8 +10,8 @@ import * as Linking from 'expo-linking';
 import WalletConnectProvider from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import AppNavigation from './src/components/AppNavigation';
 import { store } from './src/store';
-import ContractsListScreen from './src/screens/ContractsListScreen';
 import WithFonts from './src/components/WithFonts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -27,7 +27,7 @@ export default function App() {
             }}
           >
             <WithFonts>
-              <ContractsListScreen />
+              <AppNavigation />
             </WithFonts>
           </WalletConnectProvider>
         </NavigationContainer>

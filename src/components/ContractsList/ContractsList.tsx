@@ -7,8 +7,15 @@ import { useCallback, useState } from 'react';
 import SuperScroll from '../SuperScroll';
 import { StyleSheet } from 'react-native';
 import { ContractListItem } from './ContractListItem';
+import { ContractInterface } from '../../models';
 
-export const ContractsList: React.FC = () => {
+interface ContractListProps {
+  onContractClick: (contract: ContractInterface) => void;
+}
+
+export const ContractsList: React.FC<ContractListProps> = ({
+  onContractClick,
+}) => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
   const contracts = useSelector(
@@ -35,7 +42,12 @@ export const ContractsList: React.FC = () => {
           ItemSeparatorComponent={() => <View marginB-12 />}
           scrollEnabled={bottomSheetOpen}
           keyExtractor={(c) => [c.address, c.chainId].join('-')}
-          renderItem={({ item }) => <ContractListItem contract={item} />}
+          renderItem={({ item }) => (
+            <ContractListItem
+              onClick={() => onContractClick(item)}
+              contract={item}
+            />
+          )}
           ListFooterComponent={() => (
             <View marginT-16 paddingH-24>
               <Button outline label="Add contract" size={Button.sizes.large} />
