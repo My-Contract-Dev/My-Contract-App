@@ -1,7 +1,8 @@
 import { StyleProp, StyleSheet } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { TabController, Text, View } from 'react-native-ui-lib';
+import { TabController, Text, Typography, View } from 'react-native-ui-lib';
 import { ContractInterface } from '../../models';
+import EventsDetails from '../EventsDetails';
 import TokenList from '../TokenList';
 
 interface ContractDetailsProps {
@@ -26,6 +27,8 @@ export const ContractDetails: React.FC<ContractDetailsProps> = ({ style }) => {
           enableShadows
           containerStyle={styles.tabContainer}
           height={30}
+          labelStyle={{ ...Typography.body, ...Typography.medium }}
+          selectedLabelStyle={{ ...Typography.body, ...Typography.bold }}
         />
         <View flex>
           <TabController.TabPage index={0}>
@@ -37,6 +40,9 @@ export const ContractDetails: React.FC<ContractDetailsProps> = ({ style }) => {
           <TabController.TabPage index={2} lazy>
             <Text>Third page</Text>
           </TabController.TabPage>
+          <TabController.TabPage index={3} lazy>
+            <EventsDetails />
+          </TabController.TabPage>
         </View>
       </TabController>
     </Animated.View>
@@ -44,7 +50,9 @@ export const ContractDetails: React.FC<ContractDetailsProps> = ({ style }) => {
 };
 
 const styles = StyleSheet.create({
-  tabContainer: {},
+  tabContainer: {
+    paddingHorizontal: 12,
+  },
   container: {
     flex: 1,
   },
