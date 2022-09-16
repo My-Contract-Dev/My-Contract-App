@@ -5,7 +5,7 @@ export const DateLabel: React.FC = () => {
   return (
     <TouchableOpacity activeOpacity={0.8}>
       <View style={styles.container}>
-        <Text caption bold>
+        <Text primary caption bold>
           Last 7 days
         </Text>
       </View>

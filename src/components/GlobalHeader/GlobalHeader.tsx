@@ -23,31 +23,31 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ ...props }) => {
           <MetricView
             value={1200}
             size="medium"
-            caption="Transactions"
+            caption="Calls"
             style={styles.metricUnit}
           />
           <MetricView
             value={20100}
             units="$"
             size="medium"
-            caption="Transactions value"
+            caption="GMV"
             style={styles.metricUnit}
           />
-        </View>
-        <View style={styles.subMetrics}>
           <MetricView
             value={539}
             size="medium"
             caption="Users"
             style={styles.metricUnit}
           />
+        </View>
+        {/* <View style={styles.subMetrics}>
           <MetricView
             value={6100000}
             size="medium"
             caption="Gas used"
             style={styles.metricUnit}
           />
-        </View>
+        </View> */}
       </View>
     </SafeAreaView>
   );
@@ -66,6 +66,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   metricUnit: {
-    flex: 1,
+    marginRight: 32,
   },
 });

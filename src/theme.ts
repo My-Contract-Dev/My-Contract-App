@@ -15,7 +15,7 @@ Colors.loadColors({
 });
 
 const defaultTextStyles: TextStyle = {
-  color: '#4E2F75',
+  fontFamily: FontFamilies.regular,
 };
 
 Typography.loadTypographies({
@@ -27,14 +27,21 @@ Typography.loadTypographies({
     ...defaultTextStyles,
     fontSize: 40,
   },
+  h3: {
+    ...defaultTextStyles,
+    fontSize: 24,
+  },
   subtitle: {
     ...defaultTextStyles,
     fontSize: 20,
   },
   body: {
     ...defaultTextStyles,
-    fontFamily: FontFamilies.regular,
     fontSize: 16,
+  },
+  body2: {
+    ...defaultTextStyles,
+    fontSize: 14,
   },
   caption: {
     ...defaultTextStyles,

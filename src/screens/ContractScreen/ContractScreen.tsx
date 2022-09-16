@@ -1,18 +1,29 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Text } from 'react-native-ui-lib';
+import { useCallback } from 'react';
+import ContractDetails from '../../components/ContractDetails';
+import ContractHeader from '../../components/ContractHeader';
 import ScreenWrapper from '../../components/ScreenWrapper';
+import SuperScroll from '../../components/SuperScroll';
 import { RootNavigationProps } from '../../models';
 
 const ContractScreen: React.FC<
   NativeStackScreenProps<RootNavigationProps, 'Contract'>
-> = ({ route }) => {
+> = ({ route, navigation }) => {
   const {
     params: { contract },
   } = route;
 
+  const onBack = useCallback(() => navigation.pop(), [navigation]);
+
   return (
     <ScreenWrapper>
-      <Text>{contract.address}</Text>
+      <SuperScroll
+        bottomSheetChildren={(style) => (
+          <ContractDetails style={style} contract={contract} />
+        )}
+      >
+        <ContractHeader onBack={onBack} contract={contract} />
+      </SuperScroll>
     </ScreenWrapper>
   );
 };
