@@ -7,6 +7,7 @@ query AccountMetrics($addresses: [String!]!, $dateRange: [String!]) {
       address
       chainId
       balanceInUsd
+      calls
     }
   }
 }

@@ -1,5 +1,7 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Colors, Text, View } from 'react-native-ui-lib';
+import { useGasDetailsQuery } from '../../generated/graphql';
+import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
 import PyramidChart from '../PyramidChart';
 
@@ -18,7 +20,26 @@ const Section = (props: { children: string }) => (
   </View>
 );
 
-export const GasDetails: React.FC = () => {
+interface GasDetailsProps {
+  contract: ContractInterface;
+}
+
+export const GasDetails: React.FC<GasDetailsProps> = ({ contract }) => {
+  const gasQuery = useGasDetailsQuery({
+    variables: {
+      contract: {
+        address: contract.address,
+        chainId: contract.chainId,
+      },
+    },
+  });
+
+  const gasDetails = gasQuery.data;
+
+  if (!gasDetails) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
     <BottomSheetFlatList
       data={[]}
@@ -27,35 +48,22 @@ export const GasDetails: React.FC = () => {
         <View>
           <Section>Average gas per call</Section>
           <PyramidChart
-            data={[
-              {
-                label: 'Transfer',
-                value: 726,
-              },
-              {
-                label: 'Approve',
-                value: 543,
-              },
-              {
-                label: 'Delete',
-                value: 235,
-              },
-              {
-                label: 'Create',
-                value: 233,
-              },
-              {
-                label: 'Improve',
-                value: 23,
-              },
-              {
-                label: 'TransferOwnership',
-                value: 3,
-              },
-            ]}
+            data={gasDetails.averageGas.map((v) => ({
+              label: v.name,
+              value: v.averageGas,
+            }))}
           />
-          <Section>Total gas usage</Section>
-          <LinesChart style={{ marginTop: 16 }} data={[]} />
+          <Section>Average gas consumption</Section>
+          <LinesChart
+            style={{ marginTop: 16 }}
+            lines={['Gas']}
+            data={gasDetails.averageGasByDate.map((e) => ({
+              label: e.timestamp,
+              values: {
+                Gas: e.value,
+              },
+            }))}
+          />
         </View>
       )}
     />

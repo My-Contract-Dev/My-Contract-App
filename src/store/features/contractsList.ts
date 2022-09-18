@@ -12,7 +12,7 @@ const initialState: ContractsListState = {
       name: 'TransferSafe_Router',
       chainId: 9001,
     },
-    { address: '0xBfA71A6cDc7e0eF079596D2462b134181b0DdB59', chainId: 9001 },
+    { address: '0xb5b9e3fefb86255e6a7e04fd8e2fc98757a4aa4f', chainId: 9001 },
     {
       address: '0x720035b1417f9f9dea4097b578d30c373cd3dd04',
       chainId: 9001,

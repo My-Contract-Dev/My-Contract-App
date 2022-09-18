@@ -38,13 +38,13 @@ export const ContractDetails: React.FC<ContractDetailsProps> = ({
             <TokenList contract={contract} />
           </TabController.TabPage>
           <TabController.TabPage index={1} lazy>
-            <CallsDetails />
+            <CallsDetails contract={contract} />
           </TabController.TabPage>
           <TabController.TabPage index={2} lazy>
-            <EventsDetails />
+            <EventsDetails contract={contract} />
           </TabController.TabPage>
           <TabController.TabPage index={3} lazy>
-            <GasDetails />
+            <GasDetails contract={contract} />
           </TabController.TabPage>
         </View>
       </TabController>

@@ -4,7 +4,7 @@ import { Text, View } from 'react-native-ui-lib';
 import { formatNumber } from '../utils';
 
 interface MetricViewProps {
-  size: 'big' | 'medium';
+  size: 'big' | 'medium' | 'small';
   value?: number;
   caption: string;
   units?: string;
@@ -38,6 +38,7 @@ const MetricView: React.FC<MetricViewProps> = ({
         {...{
           h1: size === 'big',
           h3: size === 'medium',
+          body: size === 'small',
           bold: size === 'big',
           medium: size === 'medium',
         }}

@@ -1,0 +1,10 @@
+query EventsDetails($contract: ContractInputDto!) {
+  popularEvents(contract: $contract) {
+    name
+    count
+  }
+  totalEvents(contract: $contract) {
+    value
+    timestamp
+  }
+}

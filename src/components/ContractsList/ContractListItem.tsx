@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
-import { Text, View } from 'react-native-ui-lib';
+import { Card, Text, View } from 'react-native-ui-lib';
 import { useDispatch } from 'react-redux';
 
 import { RichContract } from '../../models';
@@ -25,6 +25,13 @@ export const ContractListItem: React.FC<ContractListItemProps> = ({
     }
     return '...';
   }, [contract.valueInUsd]);
+
+  const formattedCallsValue = useMemo(() => {
+    if (contract.calls !== undefined) {
+      return formatNumber(contract.calls, { precision: 0, compact: true });
+    }
+    return '...';
+  }, [contract.calls]);
 
   const onDelete = useCallback(() => {
     dispatch(removeContract(contract));
@@ -74,61 +81,95 @@ export const ContractListItem: React.FC<ContractListItemProps> = ({
   );
 
   return (
-    <Swipeable renderRightActions={renderDeleteButton}>
-      <TouchableOpacity
-        onPress={onClick}
-        activeOpacity={0.75}
-        style={styles.container}
-      >
-        <View
-          style={[
-            styles.avatar,
-            {
-              backgroundColor: contractColor,
-            },
-          ]}
-          marginR-16
-        >
-          {contract.label && (
-            <View
-              style={[
-                styles.labelContainer,
-                {
-                  backgroundColor: contract.label.color,
-                },
-              ]}
-            >
-              <View style={styles.label}>
-                <Text smallCaption bold numberOfLines={1}>
-                  {contract.label.text}
-                </Text>
+    <Swipeable
+      containerStyle={{ overflow: 'visible' }}
+      renderRightActions={renderDeleteButton}
+    >
+      <Card onPress={onClick} activeOpacity={0.75} style={styles.container}>
+        <View style={styles.content}>
+          <View
+            style={[
+              styles.avatar,
+              {
+                backgroundColor: contractColor,
+              },
+            ]}
+            marginR-16
+          >
+            {contract.label && (
+              <View
+                style={[
+                  styles.labelContainer,
+                  {
+                    backgroundColor: contract.label.color,
+                  },
+                ]}
+              >
+                <View style={styles.label}>
+                  <Text smallCaption bold numberOfLines={1}>
+                    {contract.label.text}
+                  </Text>
+                </View>
               </View>
-            </View>
-          )}
-          <Text style={styles.avatarEmoji}>{contractEmoji}</Text>
-        </View>
-        <View flex-1 marginR-16>
-          <Text numberOfLines={1} ellipsizeMode="tail" body>
-            {contract.name ?? contract.address}
-          </Text>
-          {contract.name && (
-            <Text numberOfLines={1} ellipsizeMode="tail" body disabled>
-              {contract.address}
+            )}
+            <Text style={styles.avatarEmoji}>{contractEmoji}</Text>
+          </View>
+          <View flex-1 marginR-16>
+            <Text numberOfLines={1} ellipsizeMode="tail" body>
+              {contract.name ?? contract.address}
             </Text>
-          )}
+            {contract.name && (
+              <Text numberOfLines={1} ellipsizeMode="tail" body disabled>
+                {contract.address}
+              </Text>
+            )}
+          </View>
         </View>
-        <Text subtitle>$ {formattedValue}</Text>
-      </TouchableOpacity>
+        <View style={styles.hr} />
+        <View style={styles.footer}>
+          <View marginR-16>
+            <Text disabled body>
+              <Text disabled body medium>
+                {formattedCallsValue}
+              </Text>{' '}
+              calls
+            </Text>
+          </View>
+          <View>
+            <Text disabled body>
+              <Text disabled body medium>
+                $ {formattedValue}
+              </Text>{' '}
+              balance
+            </Text>
+          </View>
+        </View>
+      </Card>
     </Swipeable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 32,
-    paddingVertical: 8,
+    marginHorizontal: 24,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    backgroundColor: 'white',
+  },
+  content: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  hr: {
+    height: 1,
+    backgroundColor: '#E5E5E5',
+    marginVertical: 16,
+    width: '100%',
+  },
+  footer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   avatar: {
     height: 48,
@@ -154,5 +195,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 6,
+  },
+  metric: {
+    marginLeft: 16,
   },
 });

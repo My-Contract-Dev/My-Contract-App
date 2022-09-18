@@ -1,0 +1,10 @@
+query GasDetails($contract: ContractInputDto!) {
+  averageGas(contract: $contract) {
+    name
+    averageGas
+  }
+  averageGasByDate(contract: $contract) {
+    value
+    timestamp
+  }
+}

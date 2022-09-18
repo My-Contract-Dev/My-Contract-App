@@ -1,5 +1,9 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
+import { useMemo } from 'react';
+
 import { Colors, Text, View } from 'react-native-ui-lib';
+import { useCallsDetailsQuery } from '../../generated/graphql';
+import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
 import PyramidChart from '../PyramidChart';
 
@@ -18,44 +22,53 @@ const Section = (props: { children: string }) => (
   </View>
 );
 
-export const CallsDetails: React.FC = () => {
+interface CallsDetailsProps {
+  contract: ContractInterface;
+}
+
+export const CallsDetails: React.FC<CallsDetailsProps> = ({ contract }) => {
+  const callDetailsQuery = useCallsDetailsQuery({
+    variables: {
+      contract: {
+        address: contract.address,
+        chainId: contract.chainId,
+      },
+    },
+  });
+
+  const callDetails = useMemo(
+    () => callDetailsQuery.data,
+    [callDetailsQuery.data]
+  );
+
+  if (!callDetails) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
     <BottomSheetFlatList
       data={[]}
       renderItem={() => <View />}
       ListHeaderComponent={() => (
         <View>
-          <Section>Popular methods</Section>
+          <Section>Calls by method</Section>
           <PyramidChart
-            data={[
-              {
-                label: 'Transfer',
-                value: 726,
-              },
-              {
-                label: 'Approve',
-                value: 543,
-              },
-              {
-                label: 'Delete',
-                value: 235,
-              },
-              {
-                label: 'Create',
-                value: 233,
-              },
-              {
-                label: 'Improve',
-                value: 23,
-              },
-              {
-                label: 'TransferOwnership',
-                value: 3,
-              },
-            ]}
+            data={callDetails.popularCalls.map((c) => ({
+              label: c.name,
+              value: c.count,
+            }))}
           />
-          <Section>All calls</Section>
-          <LinesChart style={{ marginTop: 16 }} data={[]} />
+          <Section>Total calls</Section>
+          <LinesChart
+            style={{ marginTop: 16 }}
+            lines={['Calls']}
+            data={callDetails.totalCalls.map((c) => ({
+              label: c.timestamp,
+              values: {
+                Calls: c.value,
+              },
+            }))}
+          />
         </View>
       )}
     />

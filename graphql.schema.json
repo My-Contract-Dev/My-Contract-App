@@ -625,6 +625,22 @@
             "deprecationReason": null
           },
           {
+            "name": "calls",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "chainId",
             "description": null,
             "args": [],
@@ -770,14 +786,14 @@
             "description": null,
             "args": [
               {
-                "name": "address",
+                "name": "contract",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "ContractInputDto",
                     "ofType": null
                   }
                 },
@@ -811,14 +827,14 @@
             "description": null,
             "args": [
               {
-                "name": "address",
+                "name": "contract",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "ContractInputDto",
                     "ofType": null
                   }
                 },
@@ -954,14 +970,14 @@
             "description": null,
             "args": [
               {
-                "name": "address",
+                "name": "contract",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "ContractInputDto",
                     "ofType": null
                   }
                 },
@@ -995,14 +1011,14 @@
             "description": null,
             "args": [
               {
-                "name": "address",
+                "name": "contract",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "ContractInputDto",
                     "ofType": null
                   }
                 },
@@ -1036,14 +1052,14 @@
             "description": null,
             "args": [
               {
-                "name": "address",
+                "name": "contract",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "ContractInputDto",
                     "ofType": null
                   }
                 },
@@ -1077,14 +1093,14 @@
             "description": null,
             "args": [
               {
-                "name": "address",
+                "name": "contract",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "ContractInputDto",
                     "ofType": null
                   }
                 },

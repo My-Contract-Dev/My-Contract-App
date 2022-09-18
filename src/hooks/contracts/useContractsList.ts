@@ -21,11 +21,15 @@ export const useContractsList = (): RichContract[] => {
     if (!metricsData.data) {
       return contracts;
     }
-    return contracts.map<RichContract>((c) => ({
-      ...c,
-      valueInUsd: metricsData.data?.accountMetrics.contracts.find(
+    return contracts.map<RichContract>((c) => {
+      const enhancedContract = metricsData.data?.accountMetrics.contracts.find(
         (rc) => rc.address === c.address && rc.chainId === c.chainId
-      )?.balanceInUsd,
-    }));
+      );
+      return {
+        ...c,
+        valueInUsd: enhancedContract?.balanceInUsd,
+        calls: enhancedContract?.calls,
+      };
+    });
   }, [contracts, metricsData.data]);
 };

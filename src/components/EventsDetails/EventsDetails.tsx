@@ -1,5 +1,7 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Colors, Text, View } from 'react-native-ui-lib';
+import { useEventsDetailsQuery } from '../../generated/graphql';
+import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
 import PyramidChart from '../PyramidChart';
 
@@ -18,7 +20,26 @@ const Section = (props: { children: string }) => (
   </View>
 );
 
-export const EventsDetails: React.FC = () => {
+interface EventsDetailsProps {
+  contract: ContractInterface;
+}
+
+export const EventsDetails: React.FC<EventsDetailsProps> = ({ contract }) => {
+  const eventsQuery = useEventsDetailsQuery({
+    variables: {
+      contract: {
+        address: contract.address,
+        chainId: contract.chainId,
+      },
+    },
+  });
+
+  const eventsMetrics = eventsQuery.data;
+
+  if (!eventsMetrics) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
     <BottomSheetFlatList
       data={[]}
@@ -27,35 +48,22 @@ export const EventsDetails: React.FC = () => {
         <View>
           <Section>Popular events</Section>
           <PyramidChart
-            data={[
-              {
-                label: 'Transfer',
-                value: 726,
-              },
-              {
-                label: 'Approve',
-                value: 543,
-              },
-              {
-                label: 'Delete',
-                value: 235,
-              },
-              {
-                label: 'Create',
-                value: 233,
-              },
-              {
-                label: 'Improve',
-                value: 23,
-              },
-              {
-                label: 'TransferOwnership',
-                value: 3,
-              },
-            ]}
+            data={eventsMetrics.popularEvents.map((e) => ({
+              label: e.name,
+              value: e.count,
+            }))}
           />
           <Section>All events</Section>
-          <LinesChart style={{ marginTop: 16 }} data={[]} />
+          <LinesChart
+            style={{ marginTop: 16 }}
+            lines={['Count']}
+            data={eventsMetrics.totalEvents.map((e) => ({
+              label: e.timestamp,
+              values: {
+                Count: e.value,
+              },
+            }))}
+          />
         </View>
       )}
     />

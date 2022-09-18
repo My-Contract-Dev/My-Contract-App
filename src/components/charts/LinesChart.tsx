@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Dimensions, ViewStyle } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { formatNumber } from '../../utils';
@@ -9,35 +10,50 @@ interface LinesChartDataItem {
 
 interface LinesChartProps {
   data: LinesChartDataItem[];
+  lines: string[];
   style?: Partial<ViewStyle>;
+  formatXLabel?: (label: string) => string;
 }
 
-export const LinesChart: React.FC<LinesChartProps> = ({ data, style }) => {
+export const LinesChart: React.FC<LinesChartProps> = ({
+  data,
+  style,
+  lines,
+  formatXLabel,
+}) => {
+  const labels = useMemo(() => {
+    return data.map((item) => item.label);
+  }, [data]);
   return (
     <LineChart
-      formatYLabel={(value) => formatNumber(Number(value))}
+      formatYLabel={(value) => formatNumber(Number(value), { compact: true })}
+      formatXLabel={
+        formatXLabel ??
+        ((label) => {
+          const t = new Date(label);
+          return t.toLocaleDateString(undefined, {
+            day: 'numeric',
+            month: 'short',
+          });
+        })
+      }
       style={style}
       width={Dimensions.get('window').width}
       height={220}
       segments={2}
       data={{
-        labels: ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'],
-        datasets: [
-          {
-            data: [10, 18, 30, 34, 23, 55, 32, 12],
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // optional
-          },
-          {
-            data: [10, 32, 40, 24, 15, 32, 45, 32],
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // optional
-          },
-        ],
+        labels: labels,
+        datasets: lines.map((line) => ({
+          data: data.map((item) => item.values[line]),
+          color: () => 'rgba(255, 92, 0, 1)', // optional
+        })),
       }}
       chartConfig={{
         color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // optional
         backgroundColor: 'white',
         backgroundGradientFrom: 'white',
         backgroundGradientTo: 'white',
+        useShadowColorFromDataset: true,
       }}
       bezier
       withDots={false}
