@@ -1,8 +1,10 @@
 import { StyleProp, StyleSheet } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { TabController, Text, Typography, View } from 'react-native-ui-lib';
+import { TabController, Typography, View } from 'react-native-ui-lib';
 import { ContractInterface } from '../../models';
+import CallsDetails from '../CallsDetails';
 import EventsDetails from '../EventsDetails';
+import GasDetails from '../GasDetails';
 import TokenList from '../TokenList';
 
 interface ContractDetailsProps {
@@ -15,12 +17,10 @@ export const ContractDetails: React.FC<ContractDetailsProps> = ({ style }) => {
     <Animated.View style={[style, styles.container]}>
       <TabController
         items={[
-          { label: 'Overview' },
           { label: 'Assets' },
           { label: 'Calls' },
           { label: 'Events' },
           { label: 'Gas' },
-          { label: 'Manage' },
         ]}
       >
         <TabController.TabBar
@@ -32,16 +32,16 @@ export const ContractDetails: React.FC<ContractDetailsProps> = ({ style }) => {
         />
         <View flex>
           <TabController.TabPage index={0}>
-            <Text>Something?</Text>
-          </TabController.TabPage>
-          <TabController.TabPage index={1} lazy>
             <TokenList />
           </TabController.TabPage>
+          <TabController.TabPage index={1} lazy>
+            <CallsDetails />
+          </TabController.TabPage>
           <TabController.TabPage index={2} lazy>
-            <Text>Third page</Text>
+            <EventsDetails />
           </TabController.TabPage>
           <TabController.TabPage index={3} lazy>
-            <EventsDetails />
+            <GasDetails />
           </TabController.TabPage>
         </View>
       </TabController>
