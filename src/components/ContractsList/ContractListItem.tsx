@@ -88,69 +88,75 @@ export const ContractListItem: React.FC<ContractListItemProps> = ({
       containerStyle={{ overflow: 'visible' }}
       renderRightActions={renderDeleteButton}
     >
-      <Card onPress={onClick} activeOpacity={0.75} style={styles.container}>
-        <View style={styles.content}>
-          <View
-            style={[
-              styles.avatar,
-              {
-                backgroundColor: contractColor,
-              },
-            ]}
-            marginR-16
-          >
-            {contract.label && (
-              <View
-                style={[
-                  styles.labelContainer,
-                  {
-                    backgroundColor: contract.label.color,
-                  },
-                ]}
-              >
-                <View style={styles.label}>
-                  <Text smallCaption bold numberOfLines={1}>
-                    {contract.label.text}
-                  </Text>
+      <Card style={styles.container}>
+        <TouchableOpacity onPress={onClick} activeOpacity={0.75}>
+          <View style={styles.content}>
+            <View
+              style={[
+                styles.avatar,
+                {
+                  backgroundColor: contractColor,
+                },
+              ]}
+              marginR-16
+            >
+              {contract.label && (
+                <View
+                  style={[
+                    styles.labelContainer,
+                    {
+                      backgroundColor: contract.label.color,
+                    },
+                  ]}
+                >
+                  <View style={styles.label}>
+                    <Text smallCaption bold numberOfLines={1}>
+                      {contract.label.text}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            )}
-            <Text style={styles.avatarEmoji}>{contractEmoji}</Text>
-          </View>
-          <View flex-1 marginR-16>
-            <Text numberOfLines={1} ellipsizeMode="tail" body>
-              {contract.name ?? contract.address}
-            </Text>
-            {contract.name && (
-              <Text numberOfLines={1} ellipsizeMode="tail" body disabled>
-                {contract.address}
+              )}
+              <Text style={styles.avatarEmoji}>{contractEmoji}</Text>
+            </View>
+            <View flex-1 marginR-16>
+              <Text numberOfLines={1} ellipsizeMode="tail" body>
+                {contract.name ?? contract.address}
               </Text>
-            )}
+              {contract.name && (
+                <Text numberOfLines={1} ellipsizeMode="tail" body disabled>
+                  {contract.address}
+                </Text>
+              )}
+            </View>
           </View>
-        </View>
-        <View style={styles.hr} />
-        <View style={styles.footer}>
-          <View marginR-16 style={styles.metricItem}>
-            <Text disabled body medium>
-              {formattedCallsValue}
-            </Text>
-            {showSkeleton && <SkeletonView height={16} marginR-6 width={32} />}
-            <Text disabled body>
-              {' '}
-              calls
-            </Text>
+          <View style={styles.hr} />
+          <View style={styles.footer}>
+            <View marginR-16 style={styles.metricItem}>
+              <Text disabled body medium>
+                {formattedCallsValue}
+              </Text>
+              {showSkeleton && (
+                <SkeletonView height={16} marginR-6 width={32} />
+              )}
+              <Text disabled body>
+                {' '}
+                calls
+              </Text>
+            </View>
+            <View style={styles.metricItem}>
+              {showSkeleton && (
+                <SkeletonView height={16} marginR-6 width={40} />
+              )}
+              <Text disabled body medium>
+                {formattedValue}
+              </Text>
+              <Text disabled body>
+                {' '}
+                balance
+              </Text>
+            </View>
           </View>
-          <View style={styles.metricItem}>
-            {showSkeleton && <SkeletonView height={16} marginR-6 width={40} />}
-            <Text disabled body medium>
-              {formattedValue}
-            </Text>
-            <Text disabled body>
-              {' '}
-              balance
-            </Text>
-          </View>
-        </View>
+        </TouchableOpacity>
       </Card>
     </Swipeable>
   );

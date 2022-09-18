@@ -32,10 +32,6 @@ export const ContractHeader: React.FC<ContractHeaderProps> = ({
     [contractMetrics.data]
   );
 
-  useEffect(() => {
-    console.log('===> contract', contract.address);
-  }, [contract.address]);
-
   return (
     <SafeAreaView>
       <TouchableOpacity

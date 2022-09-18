@@ -1,10 +1,12 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
+import Toast from 'react-native-toast-message';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAccountMetricsQuery } from '../../generated/graphql';
 import { RichContract } from '../../models';
-import { RootState } from '../../store';
+import { RootState, updateContractName } from '../../store';
 
 export const useContractsList = (): RichContract[] => {
+  const dispatch = useDispatch();
   const contracts = useSelector(
     (state: RootState) => state.contractsList.contracts
   );
@@ -17,6 +19,18 @@ export const useContractsList = (): RichContract[] => {
     initialFetchPolicy: 'cache-and-network',
   });
 
+  useEffect(() => {
+    if (metricsData.error) {
+      Toast.show({
+        autoHide: false,
+        text1: 'Oops, failed to load data',
+        text2: 'Please try again later. Or check your conneection',
+        type: 'error',
+        position: 'bottom',
+      });
+    }
+  }, [metricsData.error]);
+
   return useMemo<RichContract[]>(() => {
     if (!metricsData.data) {
       return contracts;
@@ -25,11 +39,20 @@ export const useContractsList = (): RichContract[] => {
       const enhancedContract = metricsData.data?.accountMetrics.contracts.find(
         (rc) => rc.address === c.address && rc.chainId === c.chainId
       );
+      if (enhancedContract?.name && enhancedContract?.name !== c.name) {
+        dispatch(
+          updateContractName({
+            contract: c,
+            name: enhancedContract.name,
+          })
+        );
+      }
       return {
         ...c,
+        name: enhancedContract?.name || c.name,
         valueInUsd: enhancedContract?.balanceInUsd,
         calls: enhancedContract?.calls,
       };
     });
-  }, [contracts, metricsData.data]);
+  }, [contracts, dispatch, metricsData.data]);
 };

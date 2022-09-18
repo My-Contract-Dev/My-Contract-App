@@ -6,22 +6,7 @@ export interface ContractsListState {
 }
 
 const initialState: ContractsListState = {
-  contracts: [
-    {
-      address: '0x961f9b1d87f44e5956cbf2cf5e8495b8c391e646',
-      name: 'TransferSafe_Router',
-      chainId: 9001,
-    },
-    { address: '0xb5b9e3fefb86255e6a7e04fd8e2fc98757a4aa4f', chainId: 9001 },
-    {
-      address: '0x720035b1417f9f9dea4097b578d30c373cd3dd04',
-      chainId: 9001,
-    },
-    {
-      address: '0x11D13d3778930fC0Dd5098940C00b24FC0dB608A',
-      chainId: 9001,
-    },
-  ],
+  contracts: [],
 };
 
 const contractsListSlice = createSlice({
@@ -46,9 +31,27 @@ const contractsListSlice = createSlice({
           contract.chainId !== action.payload.chainId
       );
     },
+    updateContractName: (
+      state,
+      action: PayloadAction<{ contract: ContractInterface; name: string }>
+    ) => {
+      state.contracts = state.contracts.map((c) => {
+        if (
+          c.address === action.payload.contract.address &&
+          c.chainId === action.payload.contract.chainId
+        ) {
+          return {
+            ...c,
+            name: action.payload.name,
+          };
+        }
+        return c;
+      });
+    },
   },
 });
 
 export default contractsListSlice.reducer;
 
-export const { addContract, removeContract } = contractsListSlice.actions;
+export const { addContract, removeContract, updateContractName } =
+  contractsListSlice.actions;
