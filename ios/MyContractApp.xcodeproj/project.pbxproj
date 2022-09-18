@@ -22,6 +22,7 @@
 		B47CC67A28D2F22400DD0626 /* ContractWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = B47CC67528D2F22300DD0626 /* ContractWidget.intentdefinition */; };
 		B47CC67D28D2F22400DD0626 /* ContractWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B47CC66D28D2F22300DD0626 /* ContractWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B47E070428C658630049D4E2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B47E070328C658630049D4E2 /* GoogleService-Info.plist */; };
+		B4904D0528D7AF98009BAF29 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4904D0428D7AF98009BAF29 /* GoogleService-Info.plist */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		B47CC67628D2F22400DD0626 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B47CC67828D2F22400DD0626 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B47E070328C658630049D4E2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B4904D0428D7AF98009BAF29 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		BB4CE53E76D5E4E44D2BEE77 /* libPods-MyContractApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyContractApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC70CE89758B4E16A8791A6B /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "MyContractApp/noop-file.swift"; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				B4904D0428D7AF98009BAF29 /* GoogleService-Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 				CC70CE89758B4E16A8791A6B /* noop-file.swift */,
@@ -292,6 +295,7 @@
 			files = (
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				B47E070428C658630049D4E2 /* GoogleService-Info.plist in Resources */,
+				B4904D0528D7AF98009BAF29 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 			);
