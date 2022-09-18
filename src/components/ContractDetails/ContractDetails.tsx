@@ -31,7 +31,10 @@ export const ContractDetails: React.FC<ContractDetailsProps> = ({
           containerStyle={styles.tabContainer}
           height={30}
           labelStyle={{ ...Typography.body, ...Typography.medium }}
-          selectedLabelStyle={{ ...Typography.body, ...Typography.bold }}
+          selectedLabelStyle={{
+            ...Typography.body,
+            ...Typography.bold,
+          }}
         />
         <View flex>
           <TabController.TabPage index={0}>

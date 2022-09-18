@@ -1,6 +1,7 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { BigNumber } from 'ethers';
 import { StyleSheet } from 'react-native';
+import { SkeletonView } from 'react-native-ui-lib';
 import { useAddressAssetsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
 import { TokenListItem } from './TokenListItem';
@@ -18,6 +19,19 @@ const TokenList: React.FC<TokenListProps> = ({ contract }) => {
       },
     },
   });
+
+  const showSkeleton = assets.loading && assets.data === undefined;
+
+  if (showSkeleton) {
+    return (
+      <BottomSheetFlatList
+        data={[0, 1, 2, 3, 4]}
+        renderItem={() => (
+          <SkeletonView template={SkeletonView.templates.LIST_ITEM} />
+        )}
+      />
+    );
+  }
 
   return (
     <BottomSheetFlatList

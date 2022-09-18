@@ -3,6 +3,7 @@ import { Colors, Text, View } from 'react-native-ui-lib';
 import { useEventsDetailsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
+import DetailsSkeleton from '../DetailsSkeleton';
 import PyramidChart from '../PyramidChart';
 
 const Section = (props: { children: string }) => (
@@ -37,7 +38,7 @@ export const EventsDetails: React.FC<EventsDetailsProps> = ({ contract }) => {
   const eventsMetrics = eventsQuery.data;
 
   if (!eventsMetrics) {
-    return <Text>Loading...</Text>;
+    return <DetailsSkeleton />;
   }
 
   return (
@@ -46,14 +47,14 @@ export const EventsDetails: React.FC<EventsDetailsProps> = ({ contract }) => {
       renderItem={() => <View />}
       ListHeaderComponent={() => (
         <View>
-          <Section>Popular events</Section>
+          <Section>Events by name</Section>
           <PyramidChart
             data={eventsMetrics.popularEvents.map((e) => ({
               label: e.name,
               value: e.count,
             }))}
           />
-          <Section>All events</Section>
+          <Section>Total events count</Section>
           <LinesChart
             style={{ marginTop: 16 }}
             lines={['Count']}

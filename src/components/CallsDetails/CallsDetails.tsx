@@ -5,6 +5,7 @@ import { Colors, Text, View } from 'react-native-ui-lib';
 import { useCallsDetailsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
+import DetailsSkeleton from '../DetailsSkeleton';
 import PyramidChart from '../PyramidChart';
 
 const Section = (props: { children: string }) => (
@@ -41,8 +42,8 @@ export const CallsDetails: React.FC<CallsDetailsProps> = ({ contract }) => {
     [callDetailsQuery.data]
   );
 
-  if (!callDetails) {
-    return <Text>Loading...</Text>;
+  if (!callDetails || callDetailsQuery.loading) {
+    return <DetailsSkeleton />;
   }
 
   return (

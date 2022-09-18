@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
-import { Text, View } from 'react-native-ui-lib';
+import { SkeletonView, Text, View } from 'react-native-ui-lib';
 import { formatNumber } from '../utils';
 
 interface MetricViewProps {
@@ -32,8 +32,16 @@ const MetricView: React.FC<MetricViewProps> = ({
     }
     return formatNumber(preparedValue, { compact });
   }, [value, compact, round]);
+
+  const showSkeleton = value === undefined;
+  const skeletonWidth = size === 'big' ? 80 : 60;
+  const skeletonHeight = size === 'big' ? 30 : 20;
+
   return (
     <View style={[style, styles.container]}>
+      {showSkeleton && (
+        <SkeletonView height={skeletonHeight} width={skeletonWidth} />
+      )}
       <Text
         {...{
           h1: size === 'big',
@@ -44,8 +52,9 @@ const MetricView: React.FC<MetricViewProps> = ({
         }}
         primary
       >
-        {[units, formattedValue].filter(Boolean).join(' ')}
+        {showSkeleton ? '' : [units, formattedValue].filter(Boolean).join(' ')}
       </Text>
+
       <Text
         primaryLight
         {...{

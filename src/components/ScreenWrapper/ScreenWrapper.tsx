@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface ScreenWrapperProps {
   children: React.ReactNode;

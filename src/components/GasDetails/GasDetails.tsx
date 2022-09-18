@@ -3,6 +3,7 @@ import { Colors, Text, View } from 'react-native-ui-lib';
 import { useGasDetailsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
+import DetailsSkeleton from '../DetailsSkeleton';
 import PyramidChart from '../PyramidChart';
 
 const Section = (props: { children: string }) => (
@@ -37,7 +38,7 @@ export const GasDetails: React.FC<GasDetailsProps> = ({ contract }) => {
   const gasDetails = gasQuery.data;
 
   if (!gasDetails) {
-    return <Text>Loading...</Text>;
+    return <DetailsSkeleton />;
   }
 
   return (

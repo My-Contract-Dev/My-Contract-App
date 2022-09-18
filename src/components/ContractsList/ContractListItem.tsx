@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
-import { Card, Text, View } from 'react-native-ui-lib';
+import { Card, SkeletonView, Text, View } from 'react-native-ui-lib';
 import { useDispatch } from 'react-redux';
 
 import { RichContract } from '../../models';
@@ -21,16 +21,16 @@ export const ContractListItem: React.FC<ContractListItemProps> = ({
   const dispatch = useDispatch();
   const formattedValue = useMemo(() => {
     if (contract.valueInUsd !== undefined) {
-      return formatNumber(contract.valueInUsd, { precision: 0 });
+      return '$ ' + formatNumber(contract.valueInUsd, { precision: 0 });
     }
-    return '...';
+    return '';
   }, [contract.valueInUsd]);
 
   const formattedCallsValue = useMemo(() => {
     if (contract.calls !== undefined) {
       return formatNumber(contract.calls, { precision: 0, compact: true });
     }
-    return '...';
+    return '';
   }, [contract.calls]);
 
   const onDelete = useCallback(() => {
@@ -45,6 +45,9 @@ export const ContractListItem: React.FC<ContractListItemProps> = ({
     () => randomEmoji(contract.address),
     [contract.address]
   );
+
+  const showSkeleton =
+    contract.valueInUsd === undefined || contract.calls === undefined;
 
   const renderDeleteButton = useCallback(
     (p: Animated.AnimatedInterpolation, d: Animated.AnimatedInterpolation) => {
@@ -127,19 +130,23 @@ export const ContractListItem: React.FC<ContractListItemProps> = ({
         </View>
         <View style={styles.hr} />
         <View style={styles.footer}>
-          <View marginR-16>
+          <View marginR-16 style={styles.metricItem}>
+            <Text disabled body medium>
+              {formattedCallsValue}
+            </Text>
+            {showSkeleton && <SkeletonView height={16} marginR-6 width={32} />}
             <Text disabled body>
-              <Text disabled body medium>
-                {formattedCallsValue}
-              </Text>{' '}
+              {' '}
               calls
             </Text>
           </View>
-          <View>
+          <View style={styles.metricItem}>
+            {showSkeleton && <SkeletonView height={16} marginR-6 width={40} />}
+            <Text disabled body medium>
+              {formattedValue}
+            </Text>
             <Text disabled body>
-              <Text disabled body medium>
-                $ {formattedValue}
-              </Text>{' '}
+              {' '}
               balance
             </Text>
           </View>
@@ -198,5 +205,8 @@ const styles = StyleSheet.create({
   },
   metric: {
     marginLeft: 16,
+  },
+  metricItem: {
+    flexDirection: 'row',
   },
 });
