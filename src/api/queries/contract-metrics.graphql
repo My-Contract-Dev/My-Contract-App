@@ -1,0 +1,22 @@
+query AccountMetrics($addresses: [String!]!, $dateRange: [String!]) {
+  accountMetrics(addresses: $addresses, dateRange: $dateRange) {
+    calls
+    users
+    balanceInUsd
+    contracts {
+      address
+      chainId
+      balanceInUsd
+    }
+  }
+}
+
+query ContractMetrics($contract: ContractInputDto!) {
+  contractMetrics(contracts: $contract) {
+    balance
+    gasUsed
+    averageGasUsed
+    users
+    calls
+  }
+}

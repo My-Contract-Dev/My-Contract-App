@@ -4,14 +4,14 @@ import { Swipeable } from 'react-native-gesture-handler';
 import { Text, View } from 'react-native-ui-lib';
 import { useDispatch } from 'react-redux';
 
-import { ContractInterface } from '../../models';
+import { RichContract } from '../../models';
 import { removeContract } from '../../store';
 import { formatNumber, randomColor, randomEmoji } from '../../utils';
-import { formatHash } from '../../utils/formatHash';
 
 interface ContractListItemProps {
-  contract: ContractInterface;
+  contract: RichContract;
   onClick: () => void;
+  valueInUsd?: number;
 }
 
 export const ContractListItem: React.FC<ContractListItemProps> = ({
@@ -19,13 +19,12 @@ export const ContractListItem: React.FC<ContractListItemProps> = ({
   onClick,
 }) => {
   const dispatch = useDispatch();
-  const address = useMemo(
-    () => formatHash(contract.address),
-    [contract.address]
-  );
-  const value = useMemo(() => {
-    return formatNumber(6342);
-  }, []);
+  const formattedValue = useMemo(() => {
+    if (contract.valueInUsd !== undefined) {
+      return formatNumber(contract.valueInUsd, { precision: 0 });
+    }
+    return '...';
+  }, [contract.valueInUsd]);
 
   const onDelete = useCallback(() => {
     dispatch(removeContract(contract));
@@ -88,26 +87,37 @@ export const ContractListItem: React.FC<ContractListItemProps> = ({
               backgroundColor: contractColor,
             },
           ]}
-          marginR-24
+          marginR-16
         >
-          <View style={styles.labelContainer}>
-            <View style={styles.label}>
-              <Text smallCaption bold numberOfLines={1}>
-                NFT
-              </Text>
+          {contract.label && (
+            <View
+              style={[
+                styles.labelContainer,
+                {
+                  backgroundColor: contract.label.color,
+                },
+              ]}
+            >
+              <View style={styles.label}>
+                <Text smallCaption bold numberOfLines={1}>
+                  {contract.label.text}
+                </Text>
+              </View>
             </View>
-          </View>
+          )}
           <Text style={styles.avatarEmoji}>{contractEmoji}</Text>
         </View>
-        <View flex-1>
-          <Text body>{contract.name ?? address}</Text>
+        <View flex-1 marginR-16>
+          <Text numberOfLines={1} ellipsizeMode="tail" body>
+            {contract.name ?? contract.address}
+          </Text>
           {contract.name && (
-            <Text body disabled>
-              {address}
+            <Text numberOfLines={1} ellipsizeMode="tail" body disabled>
+              {contract.address}
             </Text>
           )}
         </View>
-        <Text subtitle>$ {value}</Text>
+        <Text subtitle>$ {formattedValue}</Text>
       </TouchableOpacity>
     </Swipeable>
   );
@@ -143,7 +153,6 @@ const styles = StyleSheet.create({
   label: {
     paddingHorizontal: 6,
     paddingVertical: 2,
-    backgroundColor: '#E4ACFF',
     borderRadius: 6,
   },
 });

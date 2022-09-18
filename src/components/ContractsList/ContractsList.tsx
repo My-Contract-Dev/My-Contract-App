@@ -1,5 +1,3 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
 import GlobalHeader from '../GlobalHeader';
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Button, View } from 'react-native-ui-lib';
@@ -8,6 +6,7 @@ import SuperScroll from '../SuperScroll';
 import { StyleSheet } from 'react-native';
 import { ContractListItem } from './ContractListItem';
 import { ContractInterface } from '../../models';
+import { useContractsList } from '../../hooks';
 
 interface ContractListProps {
   onContractClick: (contract: ContractInterface) => void;
@@ -18,9 +17,7 @@ export const ContractsList: React.FC<ContractListProps> = ({
 }) => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
-  const contracts = useSelector(
-    (state: RootState) => state.contractsList.contracts
-  );
+  const contracts = useContractsList();
 
   const onBottomSheetChange = useCallback(
     (index: number) => {

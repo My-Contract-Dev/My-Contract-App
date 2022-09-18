@@ -1,14 +1,16 @@
+import { useMemo } from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { Text, View } from 'react-native-ui-lib';
 import { formatNumber } from '../utils';
 
 interface MetricViewProps {
   size: 'big' | 'medium';
-  value: number;
+  value?: number;
   caption: string;
   units?: string;
   style?: StyleProp<ViewStyle>;
   compact?: boolean;
+  round?: boolean;
 }
 
 const MetricView: React.FC<MetricViewProps> = ({
@@ -18,7 +20,18 @@ const MetricView: React.FC<MetricViewProps> = ({
   size,
   style,
   compact = true,
+  round = true,
 }) => {
+  const formattedValue = useMemo(() => {
+    if (!value) {
+      return '...';
+    }
+    let preparedValue = value;
+    if (round) {
+      preparedValue = Math.round(preparedValue);
+    }
+    return formatNumber(preparedValue, { compact });
+  }, [value, compact, round]);
   return (
     <View style={[style, styles.container]}>
       <Text
@@ -30,9 +43,15 @@ const MetricView: React.FC<MetricViewProps> = ({
         }}
         primary
       >
-        {[units, formatNumber(value, { compact })].filter(Boolean).join(' ')}
+        {[units, formattedValue].filter(Boolean).join(' ')}
       </Text>
-      <Text primaryLight caption>
+      <Text
+        primaryLight
+        {...{
+          caption: size === 'medium',
+          body: size === 'big',
+        }}
+      >
         {caption}
       </Text>
     </View>

@@ -1,11 +1,29 @@
+import { useMemo } from 'react';
 import { SafeAreaView, StyleSheet, ViewProps } from 'react-native';
 import { View } from 'react-native-ui-lib';
+import { useSelector } from 'react-redux';
+import { useAccountMetricsQuery } from '../../generated/graphql';
+import { RootState } from '../../store';
 import { DateLabel } from '../DateLabel';
 import MetricView from '../MetricView';
 
 type GlobalHeaderProps = ViewProps;
 
 export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ ...props }) => {
+  const contractAddresses = useSelector((state: RootState) =>
+    state.contractsList.contracts.map((c) => c.address)
+  );
+
+  const metricsData = useAccountMetricsQuery({
+    variables: {
+      addresses: contractAddresses,
+    },
+  });
+
+  const metrics = useMemo(() => {
+    return metricsData.data?.accountMetrics;
+  }, [metricsData.data]);
+
   return (
     <SafeAreaView {...props}>
       <View style={styles.container}>
@@ -13,41 +31,28 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ ...props }) => {
         <View style={styles.mainMetric}>
           <MetricView
             compact={false}
-            value={2322}
-            units="$"
+            value={metrics?.calls}
             size="big"
-            caption="Total balance"
+            caption="Total calls"
+            style={styles.metricUnit}
           />
         </View>
         <View style={styles.subMetrics}>
           <MetricView
-            value={1200}
-            size="medium"
-            caption="Calls"
-            style={styles.metricUnit}
-          />
-          <MetricView
-            value={20100}
+            compact={false}
+            value={metrics?.balanceInUsd}
             units="$"
             size="medium"
-            caption="GMV"
+            caption="Total balance"
             style={styles.metricUnit}
           />
           <MetricView
-            value={539}
+            value={metrics?.users}
             size="medium"
             caption="Users"
             style={styles.metricUnit}
           />
         </View>
-        {/* <View style={styles.subMetrics}>
-          <MetricView
-            value={6100000}
-            size="medium"
-            caption="Gas used"
-            style={styles.metricUnit}
-          />
-        </View> */}
       </View>
     </SafeAreaView>
   );

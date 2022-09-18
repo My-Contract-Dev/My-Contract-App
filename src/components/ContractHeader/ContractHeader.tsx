@@ -5,6 +5,8 @@ import EntypoIcons from '@expo/vector-icons/Entypo';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { DateLabel } from '../DateLabel';
 import MetricView from '../MetricView';
+import { useContractMetricsQuery } from '../../generated/graphql';
+import { useMemo } from 'react';
 
 interface ContractHeaderProps {
   contract: ContractInterface;
@@ -15,6 +17,20 @@ export const ContractHeader: React.FC<ContractHeaderProps> = ({
   contract,
   onBack,
 }) => {
+  const contractMetrics = useContractMetricsQuery({
+    variables: {
+      contract: {
+        address: contract.address,
+        chainId: contract.chainId,
+      },
+    },
+  });
+
+  const metrics = useMemo(
+    () => contractMetrics.data?.contractMetrics,
+    [contractMetrics.data]
+  );
+
   return (
     <SafeAreaView>
       <TouchableOpacity
@@ -51,23 +67,32 @@ export const ContractHeader: React.FC<ContractHeaderProps> = ({
         <View marginT-16>
           <MetricView
             units="$"
-            value={7628}
-            caption="Total balance"
+            value={metrics?.calls}
+            caption="Total calls"
             size="big"
+            compact={false}
           />
         </View>
 
         <View style={styles.subMetrics}>
           <MetricView
-            value={539}
+            compact={false}
+            units="$"
+            value={metrics?.balance}
+            caption="Total balance"
+            size="medium"
+            style={styles.metricUnit}
+          />
+          <MetricView
+            value={metrics?.users}
             size="medium"
             caption="Users"
             style={styles.metricUnit}
           />
           <MetricView
-            value={6100000}
+            value={metrics?.averageGasUsed}
             size="medium"
-            caption="Gas used"
+            caption="Average gas usage"
             style={styles.metricUnit}
           />
         </View>

@@ -18,6 +18,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
+  ignorePatterns: ['**/generated/**/*'],
   rules: {
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],

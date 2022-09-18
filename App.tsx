@@ -11,6 +11,7 @@ import WalletConnectProvider from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AppNavigation from './src/components/AppNavigation';
+import { AppApolloProvider } from './src/providers';
 import { store } from './src/store';
 import WithFonts from './src/components/WithFonts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -27,7 +28,9 @@ export default function App() {
             }}
           >
             <WithFonts>
-              <AppNavigation />
+              <AppApolloProvider>
+                <AppNavigation />
+              </AppApolloProvider>
             </WithFonts>
           </WalletConnectProvider>
         </NavigationContainer>
