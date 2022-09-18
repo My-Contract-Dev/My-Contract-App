@@ -7,6 +7,7 @@ import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
 import DetailsSkeleton from '../DetailsSkeleton';
 import EmptyPlaceholder from '../EmptyPlaceholder';
+import ErrorPlaceholder from '../ErrorPlaceholder';
 import PyramidChart from '../PyramidChart';
 
 const Section = (props: { children: string }) => (
@@ -42,6 +43,15 @@ export const CallsDetails: React.FC<CallsDetailsProps> = ({ contract }) => {
     () => callDetailsQuery.data,
     [callDetailsQuery.data]
   );
+
+  if (callDetailsQuery.error && !callDetailsQuery.data) {
+    return (
+      <ErrorPlaceholder
+        onRetry={callDetailsQuery.refetch}
+        title="Oops, failed to load assets"
+      />
+    );
+  }
 
   if (!callDetails || callDetailsQuery.loading) {
     return <DetailsSkeleton />;

@@ -5,6 +5,7 @@ import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
 import DetailsSkeleton from '../DetailsSkeleton';
 import EmptyPlaceholder from '../EmptyPlaceholder';
+import ErrorPlaceholder from '../ErrorPlaceholder';
 import PyramidChart from '../PyramidChart';
 
 const Section = (props: { children: string }) => (
@@ -37,6 +38,15 @@ export const GasDetails: React.FC<GasDetailsProps> = ({ contract }) => {
   });
 
   const gasDetails = gasQuery.data;
+
+  if (gasQuery.error && !gasQuery.data) {
+    return (
+      <ErrorPlaceholder
+        onRetry={gasQuery.refetch}
+        title="Oops, failed to load assets"
+      />
+    );
+  }
 
   if (!gasDetails) {
     return <DetailsSkeleton />;

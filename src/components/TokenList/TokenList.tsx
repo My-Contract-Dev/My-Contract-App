@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 import { SkeletonView } from 'react-native-ui-lib';
 import { useAddressAssetsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
+import ErrorPlaceholder from '../ErrorPlaceholder';
 import { TokenListItem } from './TokenListItem';
 
 interface TokenListProps {
@@ -21,6 +22,15 @@ const TokenList: React.FC<TokenListProps> = ({ contract }) => {
   });
 
   const showSkeleton = assets.loading && assets.data === undefined;
+
+  if (assets.error && !assets.data) {
+    return (
+      <ErrorPlaceholder
+        onRetry={assets.refetch}
+        title="Oops, failed to load assets"
+      />
+    );
+  }
 
   if (showSkeleton) {
     return (

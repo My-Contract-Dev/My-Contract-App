@@ -5,6 +5,7 @@ import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
 import DetailsSkeleton from '../DetailsSkeleton';
 import EmptyPlaceholder from '../EmptyPlaceholder';
+import ErrorPlaceholder from '../ErrorPlaceholder';
 import PyramidChart from '../PyramidChart';
 
 const Section = (props: { children: string }) => (
@@ -37,6 +38,15 @@ export const EventsDetails: React.FC<EventsDetailsProps> = ({ contract }) => {
   });
 
   const eventsMetrics = eventsQuery.data;
+
+  if (eventsQuery.error && !eventsMetrics) {
+    return (
+      <ErrorPlaceholder
+        onRetry={eventsQuery.refetch}
+        title="Oops, failed to load events"
+      />
+    );
+  }
 
   if (!eventsMetrics) {
     return <DetailsSkeleton />;
