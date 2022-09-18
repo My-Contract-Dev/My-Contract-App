@@ -7,6 +7,8 @@ import { StyleSheet } from 'react-native';
 import { ContractListItem } from './ContractListItem';
 import { ContractInterface } from '../../models';
 import { useContractsList } from '../../hooks';
+import { useDispatch } from 'react-redux';
+import { showAddContract } from '../../store';
 
 interface ContractListProps {
   onContractClick: (contract: ContractInterface) => void;
@@ -15,6 +17,7 @@ interface ContractListProps {
 export const ContractsList: React.FC<ContractListProps> = ({
   onContractClick,
 }) => {
+  const dispatch = useDispatch();
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
   const contracts = useContractsList();
@@ -25,6 +28,10 @@ export const ContractsList: React.FC<ContractListProps> = ({
     },
     [setBottomSheetOpen]
   );
+
+  const onAddClick = useCallback(() => {
+    dispatch(showAddContract());
+  }, [dispatch]);
 
   return (
     <SuperScroll
@@ -47,7 +54,12 @@ export const ContractsList: React.FC<ContractListProps> = ({
           )}
           ListFooterComponent={() => (
             <View marginT-16 paddingH-24>
-              <Button outline label="Add contract" size={Button.sizes.large} />
+              <Button
+                onPress={onAddClick}
+                outline
+                label="Add contract"
+                size={Button.sizes.large}
+              />
             </View>
           )}
         />

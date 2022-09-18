@@ -9,12 +9,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 import WalletConnectProvider from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 import AppNavigation from './src/components/AppNavigation';
 import { AppApolloProvider } from './src/providers';
 import { store } from './src/store';
 import WithFonts from './src/components/WithFonts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import AddContract from './src/components/AddContract';
 
 export default function App() {
   return (
@@ -30,6 +32,8 @@ export default function App() {
             <WithFonts>
               <AppApolloProvider>
                 <AppNavigation />
+                <AddContract />
+                <Toast />
               </AppApolloProvider>
             </WithFonts>
           </WalletConnectProvider>

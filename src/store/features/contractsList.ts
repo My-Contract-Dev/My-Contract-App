@@ -29,7 +29,15 @@ const contractsListSlice = createSlice({
   initialState,
   reducers: {
     addContract: (state, action: PayloadAction<ContractInterface>) => {
-      state.contracts.push(action.payload);
+      if (
+        !state.contracts.find(
+          (c) =>
+            c.address === action.payload.address &&
+            c.chainId === action.payload.chainId
+        )
+      ) {
+        state.contracts.push(action.payload);
+      }
     },
     removeContract: (state, action: PayloadAction<ContractInterface>) => {
       state.contracts = state.contracts.filter(
