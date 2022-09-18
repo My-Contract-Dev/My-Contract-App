@@ -14,14 +14,16 @@ const contractsListSlice = createSlice({
   initialState,
   reducers: {
     addContract: (state, action: PayloadAction<ContractInterface>) => {
+      const toAdd = {
+        ...action.payload,
+        address: action.payload.address.toLowerCase(),
+      };
       if (
         !state.contracts.find(
-          (c) =>
-            c.address === action.payload.address &&
-            c.chainId === action.payload.chainId
+          (c) => c.address === toAdd.address && c.chainId === toAdd.chainId
         )
       ) {
-        state.contracts.push(action.payload);
+        state.contracts.push(toAdd);
       }
     },
     removeContract: (state, action: PayloadAction<ContractInterface>) => {

@@ -30,7 +30,7 @@ export const useContractsList = (): RichContract[] => {
   }, [isRefreshing, metricsData, metricsData.loading]);
 
   useEffect(() => {
-    if (metricsData.error) {
+    if (metricsData.error?.name) {
       Toast.show({
         autoHide: false,
         text1: 'Oops, failed to load data',
@@ -39,7 +39,7 @@ export const useContractsList = (): RichContract[] => {
         position: 'bottom',
       });
     }
-  }, [metricsData.error]);
+  }, [metricsData.error?.name]);
 
   return useMemo<RichContract[]>(() => {
     if (!metricsData.data) {

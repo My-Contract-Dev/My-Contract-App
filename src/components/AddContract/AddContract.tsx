@@ -62,13 +62,14 @@ const AddContract: React.FC<AddContractProps> = ({ onAdded }) => {
         })
       );
       onAdded(address);
+      setText('');
       dispatch(hideAddContract());
     },
     [dispatch, onAdded]
   );
 
   const onAddExample = useCallback(() => {
-    addAddress('0xb5b9e3fefb86255e6a7e04fd8e2fc98757a4aa4f');
+    addAddress('0xD4949664cD82660AaE99bEdc034a0deA8A0bd517');
   }, [addAddress]);
 
   const onQrDetected = useCallback(
@@ -94,7 +95,7 @@ const AddContract: React.FC<AddContractProps> = ({ onAdded }) => {
           {text.length > 0 && (
             <Button
               disabled={!isValid}
-              onPress={onCancel}
+              onPress={() => addAddress(text)}
               label={isValid ? 'Add' : 'Please enter valid address'}
             />
           )}
@@ -166,6 +167,7 @@ const styles = StyleSheet.create({
   footer: {
     paddingHorizontal: 24,
     minHeight: 200,
+    justifyContent: 'flex-end',
   },
   toast: {
     padding: 40,
