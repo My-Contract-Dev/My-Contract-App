@@ -4,6 +4,7 @@ import { useEventsDetailsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
 import DetailsSkeleton from '../DetailsSkeleton';
+import EmptyPlaceholder from '../EmptyPlaceholder';
 import PyramidChart from '../PyramidChart';
 
 const Section = (props: { children: string }) => (
@@ -39,6 +40,10 @@ export const EventsDetails: React.FC<EventsDetailsProps> = ({ contract }) => {
 
   if (!eventsMetrics) {
     return <DetailsSkeleton />;
+  }
+
+  if (eventsMetrics.totalEvents.length === 0) {
+    return <EmptyPlaceholder label="No events so far" />;
   }
 
   return (

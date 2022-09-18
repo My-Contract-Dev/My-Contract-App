@@ -4,6 +4,7 @@ import { useGasDetailsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
 import DetailsSkeleton from '../DetailsSkeleton';
+import EmptyPlaceholder from '../EmptyPlaceholder';
 import PyramidChart from '../PyramidChart';
 
 const Section = (props: { children: string }) => (
@@ -39,6 +40,10 @@ export const GasDetails: React.FC<GasDetailsProps> = ({ contract }) => {
 
   if (!gasDetails) {
     return <DetailsSkeleton />;
+  }
+
+  if (gasDetails.averageGasByDate.length === 0) {
+    return <EmptyPlaceholder label="No calls done so far" />;
   }
 
   return (

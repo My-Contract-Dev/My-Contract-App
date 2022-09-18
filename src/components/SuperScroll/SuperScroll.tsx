@@ -1,7 +1,7 @@
 import { StyleProp, StyleSheet, View } from 'react-native';
 import Animated, { interpolateColor } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetProps } from '@gorhom/bottom-sheet';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDimensions } from '../../hooks/useDimensions';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import {
@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import divider from './divider.svg';
 import { SvgXml } from 'react-native-svg';
+import { debounce } from 'lodash';
 
 type SuperScrollProps = {
   children: React.ReactNode;
@@ -33,10 +34,27 @@ export const SuperScroll: React.FC<SuperScrollProps> = ({
   const bsRef = useRef<BottomSheetMethods | null>();
   const dimensions = useDimensions();
   const safeArea = useSafeAreaInsets();
+  const roundedHeaderSize = useMemo(
+    () => Math.round(headerSize / 10) * 10,
+    [headerSize]
+  );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const updateBottomSheet = useCallback(
+    debounce(
+      (value: number) => {
+        setInitialSnapPoint(value);
+      },
+      50,
+      { maxWait: 500 }
+    ),
+    [setInitialSnapPoint]
+  );
 
   useEffect(() => {
-    setInitialSnapPoint(dimensions.screen.height - headerSize - 20);
-  }, [headerSize, dimensions]);
+    updateBottomSheet(dimensions.screen.height - headerSize - 20);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roundedHeaderSize, dimensions.screen.height, updateBottomSheet]);
 
   const containerStyle = useAnimatedStyle(() => {
     return {

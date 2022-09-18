@@ -9,6 +9,11 @@ export const AppApolloProvider: React.FC<{ children: ReactNode }> = ({
       // uri: 'https://api.mycontract.dev/graphql/',
       uri: 'http://localhost:3000/graphql/',
       cache: new InMemoryCache(),
+      defaultOptions: {
+        query: {
+          pollInterval: 30000,
+        },
+      },
     });
   }, []);
   return <ApolloProvider client={client}>{children}</ApolloProvider>;

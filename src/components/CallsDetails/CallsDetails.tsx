@@ -6,6 +6,7 @@ import { useCallsDetailsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
 import { LinesChart } from '../charts';
 import DetailsSkeleton from '../DetailsSkeleton';
+import EmptyPlaceholder from '../EmptyPlaceholder';
 import PyramidChart from '../PyramidChart';
 
 const Section = (props: { children: string }) => (
@@ -44,6 +45,10 @@ export const CallsDetails: React.FC<CallsDetailsProps> = ({ contract }) => {
 
   if (!callDetails || callDetailsQuery.loading) {
     return <DetailsSkeleton />;
+  }
+
+  if (callDetails.totalCalls.length === 0) {
+    return <EmptyPlaceholder label="No calls done so far" />;
   }
 
   return (
