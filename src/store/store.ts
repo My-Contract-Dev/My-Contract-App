@@ -14,16 +14,19 @@ import {
 import addContract from './features/addContract';
 import auth from './features/auth';
 import contractsList from './features/contractsList';
+import refreshing from './features/refreshing';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  blacklist: ['refreshing'],
 };
 
 const rootReducer = combineReducers({
   auth,
   contractsList,
   addContract,
+  refreshing,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -19,6 +19,16 @@ export const useContractsList = (): RichContract[] => {
     initialFetchPolicy: 'cache-and-network',
   });
 
+  const isRefreshing = useSelector(
+    (state: RootState) => state.refreshing.refreshing
+  );
+
+  useEffect(() => {
+    if (isRefreshing && !metricsData.loading) {
+      metricsData.refetch();
+    }
+  }, [isRefreshing, metricsData, metricsData.loading]);
+
   useEffect(() => {
     if (metricsData.error) {
       Toast.show({

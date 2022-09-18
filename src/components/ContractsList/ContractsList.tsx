@@ -7,8 +7,8 @@ import { StyleSheet } from 'react-native';
 import { ContractListItem } from './ContractListItem';
 import { ContractInterface } from '../../models';
 import { useContractsList } from '../../hooks';
-import { useDispatch } from 'react-redux';
-import { showAddContract } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, showAddContract } from '../../store';
 
 interface ContractListProps {
   onContractClick: (contract: ContractInterface) => void;
@@ -18,6 +18,7 @@ export const ContractsList: React.FC<ContractListProps> = ({
   onContractClick,
 }) => {
   const dispatch = useDispatch();
+
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
   const contracts = useContractsList();

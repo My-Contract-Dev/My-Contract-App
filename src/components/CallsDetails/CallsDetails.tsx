@@ -1,9 +1,11 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { Colors, Text, View } from 'react-native-ui-lib';
+import { useSelector } from 'react-redux';
 import { useCallsDetailsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
+import { RootState } from '../../store';
 import { LinesChart } from '../charts';
 import DetailsSkeleton from '../DetailsSkeleton';
 import EmptyPlaceholder from '../EmptyPlaceholder';
@@ -38,6 +40,16 @@ export const CallsDetails: React.FC<CallsDetailsProps> = ({ contract }) => {
       },
     },
   });
+
+  const isRefreshing = useSelector(
+    (state: RootState) => state.refreshing.refreshing
+  );
+
+  useEffect(() => {
+    if (isRefreshing && !callDetailsQuery.loading) {
+      callDetailsQuery.refetch();
+    }
+  }, [isRefreshing, callDetailsQuery, callDetailsQuery.loading]);
 
   const callDetails = useMemo(
     () => callDetailsQuery.data,

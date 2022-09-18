@@ -1,7 +1,10 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
+import { useEffect } from 'react';
 import { Colors, Text, View } from 'react-native-ui-lib';
+import { useSelector } from 'react-redux';
 import { useGasDetailsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
+import { RootState } from '../../store';
 import { LinesChart } from '../charts';
 import DetailsSkeleton from '../DetailsSkeleton';
 import EmptyPlaceholder from '../EmptyPlaceholder';
@@ -36,6 +39,16 @@ export const GasDetails: React.FC<GasDetailsProps> = ({ contract }) => {
       },
     },
   });
+
+  const isRefreshing = useSelector(
+    (state: RootState) => state.refreshing.refreshing
+  );
+
+  useEffect(() => {
+    if (isRefreshing && !gasQuery.loading) {
+      gasQuery.refetch();
+    }
+  }, [isRefreshing, gasQuery, gasQuery.loading]);
 
   const gasDetails = gasQuery.data;
 

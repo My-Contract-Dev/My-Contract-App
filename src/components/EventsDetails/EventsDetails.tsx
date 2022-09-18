@@ -1,7 +1,10 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
+import { useEffect } from 'react';
 import { Colors, Text, View } from 'react-native-ui-lib';
+import { useSelector } from 'react-redux';
 import { useEventsDetailsQuery } from '../../generated/graphql';
 import { ContractInterface } from '../../models';
+import { RootState } from '../../store';
 import { LinesChart } from '../charts';
 import DetailsSkeleton from '../DetailsSkeleton';
 import EmptyPlaceholder from '../EmptyPlaceholder';
@@ -38,6 +41,16 @@ export const EventsDetails: React.FC<EventsDetailsProps> = ({ contract }) => {
   });
 
   const eventsMetrics = eventsQuery.data;
+
+  const isRefreshing = useSelector(
+    (state: RootState) => state.refreshing.refreshing
+  );
+
+  useEffect(() => {
+    if (isRefreshing && !eventsQuery.loading) {
+      eventsQuery.refetch();
+    }
+  }, [isRefreshing, eventsQuery, eventsQuery.loading]);
 
   if (eventsQuery.error && !eventsMetrics) {
     return (

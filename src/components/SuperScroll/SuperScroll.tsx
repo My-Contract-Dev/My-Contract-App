@@ -1,5 +1,10 @@
-import { StyleProp, StyleSheet, View } from 'react-native';
-import Animated, { interpolateColor } from 'react-native-reanimated';
+import { RefreshControl, StyleProp, StyleSheet, View } from 'react-native';
+import Animated, {
+  interpolate,
+  interpolateColor,
+  runOnJS,
+  useDerivedValue,
+} from 'react-native-reanimated';
 import BottomSheet, { BottomSheetProps } from '@gorhom/bottom-sheet';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDimensions } from '../../hooks/useDimensions';
@@ -14,6 +19,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import divider from './divider.svg';
 import { SvgXml } from 'react-native-svg';
 import { debounce } from 'lodash';
+import CustomRefreshControl from '../CustomRefreshControl';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, startRefreshing, stopRefreshing } from '../../store';
 
 type SuperScrollProps = {
   children: React.ReactNode;
@@ -28,6 +36,10 @@ export const SuperScroll: React.FC<SuperScrollProps> = ({
   bottomSheetChildren,
   bottomSheetProps,
 }) => {
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(
+    (state: RootState) => state.refreshing.refreshing
+  );
   const animationPosition = useSharedValue(0);
   const [headerSize, setHeaderSize] = useState(0);
   const [initialSnapPoint, setInitialSnapPoint] = useState(1);
@@ -38,6 +50,20 @@ export const SuperScroll: React.FC<SuperScrollProps> = ({
     () => Math.round(headerSize / 10) * 10,
     [headerSize]
   );
+
+  const runRefresh = useCallback(() => {
+    dispatch(startRefreshing());
+    setTimeout(() => dispatch(stopRefreshing()), 2000);
+  }, [dispatch]);
+
+  useDerivedValue(() => {
+    if (animationPosition.value === -1) {
+      return;
+    }
+    if (!isRefreshing && animationPosition.value <= -0.05) {
+      runOnJS(runRefresh)();
+    }
+  }, [animationPosition.value, dispatch, isRefreshing]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateBottomSheet = useCallback(
@@ -62,6 +88,21 @@ export const SuperScroll: React.FC<SuperScrollProps> = ({
     };
   }, [safeArea.top]);
 
+  const refreshControlStyle = useAnimatedStyle(() => {
+    const offset = interpolate(
+      animationPosition.value,
+      [-0.1, -0.04, 0, 1],
+      [safeArea.top + 10, safeArea.top, -20, -20]
+    );
+    return {
+      transform: [
+        {
+          translateY: offset,
+        },
+      ],
+    };
+  }, [safeArea.top]);
+
   const handlerStyles = useAnimatedStyle(() => ({
     backgroundColor: interpolateColor(
       animationPosition.value,
@@ -72,6 +113,10 @@ export const SuperScroll: React.FC<SuperScrollProps> = ({
 
   return (
     <View style={styles.container}>
+      <CustomRefreshControl
+        refreshing
+        style={[styles.refreshControl, refreshControlStyle]}
+      />
       <View
         onLayout={(event) => {
           setHeaderSize(event.nativeEvent.layout.height);
@@ -100,6 +145,10 @@ export const SuperScroll: React.FC<SuperScrollProps> = ({
 };
 
 const styles = StyleSheet.create({
+  refreshControl: {
+    position: 'absolute',
+    top: 0,
+  },
   container: {
     flex: 1,
   },
