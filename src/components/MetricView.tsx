@@ -23,7 +23,7 @@ const MetricView: React.FC<MetricViewProps> = ({
   round = true,
 }) => {
   const formattedValue = useMemo(() => {
-    if (!value) {
+    if (value === undefined) {
       return '...';
     }
     let preparedValue = value;

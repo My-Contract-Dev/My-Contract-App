@@ -6,7 +6,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { DateLabel } from '../DateLabel';
 import MetricView from '../MetricView';
 import { useContractMetricsQuery } from '../../generated/graphql';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 interface ContractHeaderProps {
   contract: ContractInterface;
@@ -24,12 +24,17 @@ export const ContractHeader: React.FC<ContractHeaderProps> = ({
         chainId: contract.chainId,
       },
     },
+    initialFetchPolicy: 'cache-and-network',
   });
 
   const metrics = useMemo(
     () => contractMetrics.data?.contractMetrics,
     [contractMetrics.data]
   );
+
+  useEffect(() => {
+    console.log('===> contract', contract.address);
+  }, [contract.address]);
 
   return (
     <SafeAreaView>
@@ -66,7 +71,6 @@ export const ContractHeader: React.FC<ContractHeaderProps> = ({
         <DateLabel />
         <View marginT-16>
           <MetricView
-            units="$"
             value={metrics?.calls}
             caption="Total calls"
             size="big"

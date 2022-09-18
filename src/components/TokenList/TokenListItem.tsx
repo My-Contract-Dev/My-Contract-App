@@ -7,6 +7,7 @@ import { formatNumber, randomColor } from '../../utils';
 type TokenListItemProps = {
   amount: BigNumber;
   amountInUsd: number;
+  decimals: number;
   color?: string;
   name?: string;
   address: string;
@@ -22,6 +23,7 @@ export const TokenListItem: React.FC<TokenListItemProps> = ({
   symbol,
   icon,
   color,
+  decimals,
 }) => {
   return (
     <View paddingH-24 paddingV-8 style={styles.container}>
@@ -39,7 +41,7 @@ export const TokenListItem: React.FC<TokenListItemProps> = ({
       <View marginH-16 style={styles.nameContainer}>
         <Text body>{name ?? address}</Text>
         <Text body disabled>
-          {formatNumber(amount.toNumber())} {symbol}
+          {formatNumber(amount, { decimals })} {symbol}
         </Text>
       </View>
       <Text body medium>

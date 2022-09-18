@@ -1,0 +1,19 @@
+fragment Token on AssetDto {
+  name
+  balance
+  price
+  inUsd
+  decimals
+  type
+  icon
+  symbol
+}
+
+query AddressAssets($address: AddressInputType!) {
+  addressAssets(address: $address) {
+    address
+    assets {
+      ...Token
+    }
+  }
+}

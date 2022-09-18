@@ -1,24 +1,37 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { BigNumber } from 'ethers';
 import { StyleSheet } from 'react-native';
+import { useAddressAssetsQuery } from '../../generated/graphql';
+import { ContractInterface } from '../../models';
 import { TokenListItem } from './TokenListItem';
 
-const TokenList: React.FC = () => {
-  const data: unknown[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+interface TokenListProps {
+  contract: ContractInterface;
+}
+
+const TokenList: React.FC<TokenListProps> = ({ contract }) => {
+  const assets = useAddressAssetsQuery({
+    variables: {
+      address: {
+        address: contract.address,
+        chainId: contract.chainId,
+      },
+    },
+  });
 
   return (
     <BottomSheetFlatList
       contentContainerStyle={styles.container}
-      data={data}
-      renderItem={() => (
+      data={assets.data?.addressAssets.assets ?? []}
+      renderItem={(asset) => (
         <TokenListItem
-          amount={BigNumber.from(1230)}
-          amountInUsd={1323}
-          name="Evmos"
-          address="0x123"
+          amount={BigNumber.from(asset.item.balance)}
+          decimals={asset.item.decimals}
+          amountInUsd={asset.item.inUsd}
+          name={asset.item.name}
+          address={asset.item.name}
           color="#DB5A3F"
-          symbol="EVM"
-          icon="https://www.covalenthq.com/static/images/icons/display-icons/evmos-logo.svg"
+          symbol={asset.item.symbol ?? undefined}
         />
       )}
     />

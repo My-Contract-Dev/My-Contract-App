@@ -12,7 +12,10 @@ interface ContractDetailsProps {
   style?: StyleProp<Animated.AnimateStyle<unknown>>;
 }
 
-export const ContractDetails: React.FC<ContractDetailsProps> = ({ style }) => {
+export const ContractDetails: React.FC<ContractDetailsProps> = ({
+  style,
+  contract,
+}) => {
   return (
     <Animated.View style={[style, styles.container]}>
       <TabController
@@ -32,7 +35,7 @@ export const ContractDetails: React.FC<ContractDetailsProps> = ({ style }) => {
         />
         <View flex>
           <TabController.TabPage index={0}>
-            <TokenList />
+            <TokenList contract={contract} />
           </TabController.TabPage>
           <TabController.TabPage index={1} lazy>
             <CallsDetails />

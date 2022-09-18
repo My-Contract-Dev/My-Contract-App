@@ -14,7 +14,6 @@ query AccountMetrics($addresses: [String!]!, $dateRange: [String!]) {
 query ContractMetrics($contract: ContractInputDto!) {
   contractMetrics(contracts: $contract) {
     balance
-    gasUsed
     averageGasUsed
     users
     calls
