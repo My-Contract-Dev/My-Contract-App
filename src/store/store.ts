@@ -15,11 +15,12 @@ import addContract from './features/addContract';
 import auth from './features/auth';
 import contractsList from './features/contractsList';
 import refreshing from './features/refreshing';
+import paywall from './features/paywall';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['refreshing'],
+  blacklist: ['refreshing', 'paywall', 'addContract'],
 };
 
 const rootReducer = combineReducers({
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   contractsList,
   addContract,
   refreshing,
+  paywall,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

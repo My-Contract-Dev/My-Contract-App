@@ -18,6 +18,7 @@ import { persistor, store } from './src/store';
 import WithFonts from './src/components/WithFonts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AddContract from './src/components/AddContract';
+import PayWall from './src/components/PayWall';
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
                 <AppApolloProvider>
                   <AppNavigation />
                   <AddContract />
+                  <PayWall />
                   <Toast />
                 </AppApolloProvider>
               </WithFonts>
