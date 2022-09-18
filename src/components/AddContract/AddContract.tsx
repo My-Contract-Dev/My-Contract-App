@@ -90,7 +90,7 @@ const AddContract: React.FC<AddContractProps> = ({ onAdded }) => {
         <View {...props} style={[style, styles.backdrop]} />
       )}
       footerComponent={() => (
-        <SafeAreaView style={[styles.footer, {}]}>
+        <SafeAreaView style={[styles.footer]}>
           {text.length > 0 && (
             <Button
               disabled={!isValid}
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingHorizontal: 24,
+    minHeight: 200,
   },
   toast: {
     padding: 40,
