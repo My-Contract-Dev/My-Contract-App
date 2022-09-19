@@ -59,7 +59,7 @@
     "react-native-shimmer-placeholder": "^2.0.9",
     "react-native-svg": "12.3.0",
     "react-native-toast-message": "^2.1.5",
-    "react-native-ui-lib": "^6.20.3",
+    "react-native-ui-lib": "^6.21.2",
     "react-native-web": "~0.18.7",
     "react-redux": "^8.0.2",
     "readable-stream": "^1.0.33",

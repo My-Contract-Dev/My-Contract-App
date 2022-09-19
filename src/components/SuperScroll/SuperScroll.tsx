@@ -1,4 +1,4 @@
-import { RefreshControl, StyleProp, StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View } from 'react-native';
 import Animated, {
   interpolate,
   interpolateColor,

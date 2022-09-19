@@ -38,6 +38,7 @@ export const useContractsList = (): RichContract[] => {
         type: 'error',
         position: 'bottom',
       });
+      console.error(metricsData.error);
     }
   }, [metricsData.error?.name]);
 

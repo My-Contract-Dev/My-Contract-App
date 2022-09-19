@@ -87,6 +87,7 @@ const AddContract: React.FC<AddContractProps> = ({ onAdded }) => {
     <BottomSheet
       keyboardBehavior="extend"
       snapPoints={['90%']}
+      enableHandlePanningGesture={false}
       backdropComponent={({ style, ...props }) => (
         <View {...props} style={[style, styles.backdrop]} />
       )}

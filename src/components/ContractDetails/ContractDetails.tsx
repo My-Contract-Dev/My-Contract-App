@@ -56,9 +56,7 @@ export const ContractDetails: React.FC<ContractDetailsProps> = ({
 };
 
 const styles = StyleSheet.create({
-  tabContainer: {
-    paddingHorizontal: 12,
-  },
+  tabContainer: {},
   container: {
     flex: 1,
   },

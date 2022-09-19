@@ -36,10 +36,18 @@ export const ContractsList: React.FC<ContractListProps> = ({
     dispatch(showAddContract());
   }, [dispatch]);
 
+  const addContractVisible = useSelector(
+    (state: RootState) => state.addContract.visible
+  );
+  if (addContractVisible && Platform.OS === 'android') {
+    return <View />;
+  }
+
   return (
     <SuperScroll
       bottomSheetProps={{
         onChange: onBottomSheetChange,
+        keyboardBlurBehavior: 'restore',
       }}
       bottomSheetChildren={(bsStyle) => (
         <BottomSheetFlatList

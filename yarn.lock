@@ -10232,10 +10232,10 @@ react-native-toast-message@^2.1.5:
   resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-2.1.5.tgz#550acb9c6c0f1ee49c6b57b65a56d34e297eb723"
   integrity sha512-mk3rELtBEhrhWBCN6CTaw0gypgL9ZNauX3xx1LUs4uee9vc0pVsghrKxO57vroUCcNL2hDeZSLJWdQNMCkGeaQ==
 
-react-native-ui-lib@^6.20.3:
-  version "6.20.3"
-  resolved "https://registry.yarnpkg.com/react-native-ui-lib/-/react-native-ui-lib-6.20.3.tgz#71f139cc5d308775e58fd578e311b9d1887cc3f4"
-  integrity sha512-5C4SCCvnrktkjMr0uolhoR9gZjfVBwSlPUFR5tVUVwGitV6wRUURFyhpU6/SG4Wt+Mw07zcxkSkpOqOofZ6P7w==
+react-native-ui-lib@^6.21.2:
+  version "6.21.2"
+  resolved "https://registry.yarnpkg.com/react-native-ui-lib/-/react-native-ui-lib-6.21.2.tgz#4b86823acc526963d0979e675afc85ef5fbb3084"
+  integrity sha512-nnATtJOex4/Ic67fsxiAZ306CErjfatkOFiMjmDfaM9rxixNIhcuD4R1O0T10iHmCwo/sagap9WVvibdFlLHKA==
   dependencies:
     babel-plugin-transform-inline-environment-variables "^0.0.2"
     color "^3.1.0"
