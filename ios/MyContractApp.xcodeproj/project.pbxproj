@@ -350,7 +350,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyContractApp/MyContractApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6UB9STX7MH;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -390,7 +390,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyContractApp/MyContractApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6UB9STX7MH;
 				INFOPLIST_FILE = MyContractApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "My Contract";
