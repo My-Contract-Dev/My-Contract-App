@@ -18,7 +18,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
-  ignorePatterns: ['**/generated/**/*'],
+  ignorePatterns: ['**/generated/**/*', 'android/**/*'],
   rules: {
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],

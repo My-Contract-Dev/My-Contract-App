@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 16,
     backgroundColor: 'white',
+    elevation: 20,
   },
   content: {
     flexDirection: 'row',

@@ -78,9 +78,9 @@ export const SuperScroll: React.FC<SuperScrollProps> = ({
   );
 
   useEffect(() => {
-    updateBottomSheet(dimensions.screen.height - headerSize - 20);
+    updateBottomSheet(dimensions.window.height - headerSize - 60);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [roundedHeaderSize, dimensions.screen.height, updateBottomSheet]);
+  }, [roundedHeaderSize, dimensions.window.height, updateBottomSheet]);
 
   const containerStyle = useAnimatedStyle(() => {
     return {

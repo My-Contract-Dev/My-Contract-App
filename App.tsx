@@ -19,8 +19,9 @@ import WithFonts from './src/components/WithFonts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AddContract from './src/components/AddContract';
 import PayWall from './src/components/PayWall';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
-export default function App() {
+function App() {
   return (
     <SafeAreaProvider>
       <Provider store={store}>
@@ -47,3 +48,5 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
+
+export default gestureHandlerRootHOC(App);

@@ -3,12 +3,13 @@ import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Button, View } from 'react-native-ui-lib';
 import { useCallback, useState } from 'react';
 import SuperScroll from '../SuperScroll';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { ContractListItem } from './ContractListItem';
 import { ContractInterface } from '../../models';
 import { useContractsList } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, showAddContract } from '../../store';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface ContractListProps {
   onContractClick: (contract: ContractInterface) => void;
@@ -18,6 +19,7 @@ export const ContractsList: React.FC<ContractListProps> = ({
   onContractClick,
 }) => {
   const dispatch = useDispatch();
+  const safeArea = useSafeAreaInsets();
 
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
@@ -42,7 +44,13 @@ export const ContractsList: React.FC<ContractListProps> = ({
       bottomSheetChildren={(bsStyle) => (
         <BottomSheetFlatList
           style={bsStyle}
-          contentContainerStyle={styles.listContainer}
+          contentContainerStyle={[
+            styles.listContainer,
+            {
+              paddingBottom:
+                safeArea.bottom + (Platform.OS === 'android' ? 40 : 0),
+            },
+          ]}
           data={contracts}
           ItemSeparatorComponent={() => <View marginB-12 />}
           scrollEnabled={bottomSheetOpen}

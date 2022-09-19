@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Dimensions, ViewStyle } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
+import { format } from 'date-fns';
 import { formatNumber } from '../../utils';
 
 interface LinesChartDataItem {
@@ -31,10 +32,7 @@ export const LinesChart: React.FC<LinesChartProps> = ({
         formatXLabel ??
         ((label) => {
           const t = new Date(label);
-          return t.toLocaleDateString(undefined, {
-            day: 'numeric',
-            month: 'short',
-          });
+          return format(t, 'dd.MM');
         })
       }
       style={style}
