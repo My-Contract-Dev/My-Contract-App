@@ -11,6 +11,7 @@ import WalletConnectProvider from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import { PersistGate } from 'redux-persist/integration/react';
+import * as Sentry from '@sentry/react-native';
 
 import AppNavigation from './src/components/AppNavigation';
 import { AppApolloProvider } from './src/providers';
@@ -20,6 +21,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AddContract from './src/components/AddContract';
 import PayWall from './src/components/PayWall';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+
+Sentry.init({
+  dsn: 'https://08a9f9d4dbba45e0a422b3afc7a6704b@o1418233.ingest.sentry.io/6761121',
+  // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+  // We recommend adjusting this value in production.
+  tracesSampleRate: 1.0,
+  environment: __DEV__ ? 'development' : 'production',
+});
 
 function App() {
   return (
@@ -49,4 +58,4 @@ function App() {
   );
 }
 
-export default gestureHandlerRootHOC(App);
+export default Sentry.wrap(gestureHandlerRootHOC(App));

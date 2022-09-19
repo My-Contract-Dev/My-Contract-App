@@ -29,7 +29,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "dev.mycontract"
+      "package": "dev.mycontract",
+      "jsEngine": "hermes"
     },
     "web": {
       "favicon": "./assets/favicon.png"
