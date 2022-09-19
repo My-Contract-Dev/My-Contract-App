@@ -8,7 +8,7 @@ export const DateLabel: React.FC = () => {
   const dispatch = useDispatch();
 
   const onPress = useCallback(() => {
-    dispatch(showPaywall());
+    dispatch(showPaywall('wider date range'));
   }, [dispatch]);
 
   return (

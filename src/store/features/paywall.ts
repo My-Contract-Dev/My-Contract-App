@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface PaywallState {
   visible: boolean;
+  label?: string;
 }
 
 const initialState: PaywallState = {
@@ -12,11 +13,13 @@ const paywallSlice = createSlice({
   initialState,
   name: 'paywall',
   reducers: {
-    showPaywall: (state) => {
+    showPaywall: (state, action: PayloadAction<string>) => {
       state.visible = true;
+      state.label = action.payload;
     },
     hidePaywall: (state) => {
       state.visible = false;
+      state.label = undefined;
     },
   },
 });

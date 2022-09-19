@@ -8,7 +8,7 @@ import { ContractListItem } from './ContractListItem';
 import { ContractInterface } from '../../models';
 import { useContractsList } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, showAddContract } from '../../store';
+import { RootState, showAddContract, showPaywall } from '../../store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface ContractListProps {
@@ -33,8 +33,12 @@ export const ContractsList: React.FC<ContractListProps> = ({
   );
 
   const onAddClick = useCallback(() => {
-    dispatch(showAddContract());
-  }, [dispatch]);
+    if (contracts.length > 0) {
+      dispatch(showPaywall('adding more then 5 contracts'));
+    } else {
+      dispatch(showAddContract());
+    }
+  }, [dispatch, contracts.length]);
 
   const addContractVisible = useSelector(
     (state: RootState) => state.addContract.visible

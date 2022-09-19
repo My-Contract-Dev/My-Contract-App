@@ -7,7 +7,7 @@ import { hidePaywall, RootState } from '../../store';
 
 const PayWall: React.FC = () => {
   const dispatch = useDispatch();
-  const visible = useSelector((state: RootState) => state.paywall.visible);
+  const { visible, label } = useSelector((state: RootState) => state.paywall);
   const [isLoading, setIsLoading] = useState(false);
 
   const onClose = useCallback(() => {
@@ -30,8 +30,7 @@ const PayWall: React.FC = () => {
             Not yet available
           </Text>
           <Text marginT-16 body center>
-            Sorry, a wider date range is not yet available in the free app
-            version.
+            Sorry, {label} available only for premium users.
           </Text>
           <Text marginT-16 body center>
             Please, subscribe to be the first to know when the premium version
