@@ -14,7 +14,6 @@
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		43990436E59C287B2D8592BA /* libPods-MyContractApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4CE53E76D5E4E44D2BEE77 /* libPods-MyContractApp.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
-		B47CC67A28D2F22400DD0626 /* ContractWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = B47CC67528D2F22300DD0626 /* ContractWidget.intentdefinition */; };
 		B4904D0528D7AF98009BAF29 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4904D0428D7AF98009BAF29 /* GoogleService-Info.plist */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 /* End PBXBuildFile section */
@@ -45,10 +44,6 @@
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = MyContractApp/SplashScreen.storyboard; sourceTree = "<group>"; };
 		B47CC66E28D2F22300DD0626 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		B47CC67028D2F22300DD0626 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		B47CC67328D2F22300DD0626 /* ContractWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractWidget.swift; sourceTree = "<group>"; };
-		B47CC67528D2F22300DD0626 /* ContractWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = ContractWidget.intentdefinition; sourceTree = "<group>"; };
-		B47CC67628D2F22400DD0626 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B47CC67828D2F22400DD0626 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4904D0428D7AF98009BAF29 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		BB4CE53E76D5E4E44D2BEE77 /* libPods-MyContractApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyContractApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,7 +104,6 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* MyContractApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				B47CC67228D2F22300DD0626 /* ContractWidget */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
@@ -134,17 +128,6 @@
 				FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */,
 			);
 			name = MyContractApp;
-			sourceTree = "<group>";
-		};
-		B47CC67228D2F22300DD0626 /* ContractWidget */ = {
-			isa = PBXGroup;
-			children = (
-				B47CC67328D2F22300DD0626 /* ContractWidget.swift */,
-				B47CC67528D2F22300DD0626 /* ContractWidget.intentdefinition */,
-				B47CC67628D2F22400DD0626 /* Assets.xcassets */,
-				B47CC67828D2F22400DD0626 /* Info.plist */,
-			);
-			path = ContractWidget;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -347,7 +330,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B47CC67A28D2F22400DD0626 /* ContractWidget.intentdefinition in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
