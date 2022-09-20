@@ -26,7 +26,10 @@ const AddContract: React.FC<AddContractProps> = ({ onAdded }) => {
   const [qrVisible, setQrVisible] = useState(false);
 
   const isValid = useMemo(() => {
-    return text.startsWith('0x') && text.length === 42;
+    return (
+      (text.startsWith('0x') && text.length === 42) ||
+      (text.toLocaleLowerCase().startsWith('evmos') && text.length > 10)
+    );
   }, [text]);
 
   const contractsList = useSelector(

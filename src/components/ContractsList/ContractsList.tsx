@@ -33,7 +33,7 @@ export const ContractsList: React.FC<ContractListProps> = ({
   );
 
   const onAddClick = useCallback(() => {
-    if (contracts.length > 0) {
+    if (contracts.length >= 5) {
       dispatch(showPaywall('adding more then 5 contracts'));
     } else {
       dispatch(showAddContract());

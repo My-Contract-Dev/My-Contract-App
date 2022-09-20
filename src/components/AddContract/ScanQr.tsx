@@ -20,12 +20,18 @@ export const ScanQr: React.FC<ScanQrProps> = ({ onDetected }) => {
     getBarCodeScannerPermissions();
   }, []);
 
-  const handleBarCodeScanned: BarCodeScannedCallback = ({ data }) => {
-    if (data.startsWith('0x') && data.length === 42) {
-      setScanned(true);
-      onDetected(data.toLocaleLowerCase());
-    }
-  };
+  const handleBarCodeScanned: BarCodeScannedCallback = useCallback(
+    ({ data }) => {
+      if (
+        (data.startsWith('0x') && data.length === 42) ||
+        data.toLocaleLowerCase().startsWith('evmos')
+      ) {
+        setScanned(true);
+        onDetected(data.toLocaleLowerCase());
+      }
+    },
+    [onDetected]
+  );
 
   const renderContent = useCallback(() => {
     if (hasPermission === null) {
