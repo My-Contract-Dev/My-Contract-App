@@ -54,6 +54,7 @@ export const LinesChart: React.FC<LinesChartProps> = ({
         useShadowColorFromDataset: true,
       }}
       bezier
+      fromZero
       withDots={false}
     />
   );
