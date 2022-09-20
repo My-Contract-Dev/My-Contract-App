@@ -19,6 +19,7 @@ const TokenList: React.FC<TokenListProps> = ({ contract }) => {
         chainId: contract.chainId,
       },
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   const showSkeleton = assets.loading && assets.data === undefined;

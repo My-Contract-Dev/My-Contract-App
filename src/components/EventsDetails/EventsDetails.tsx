@@ -38,6 +38,7 @@ export const EventsDetails: React.FC<EventsDetailsProps> = ({ contract }) => {
         chainId: contract.chainId,
       },
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   const eventsMetrics = eventsQuery.data;

@@ -18,7 +18,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ ...props }) => {
     variables: {
       addresses: contractAddresses,
     },
-    initialFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
   });
 
   const metrics = useMemo(() => {

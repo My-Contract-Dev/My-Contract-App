@@ -39,6 +39,7 @@ export const CallsDetails: React.FC<CallsDetailsProps> = ({ contract }) => {
         chainId: contract.chainId,
       },
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   const isRefreshing = useSelector(

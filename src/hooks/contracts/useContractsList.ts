@@ -16,7 +16,7 @@ export const useContractsList = (): RichContract[] => {
   );
   const metricsData = useAccountMetricsQuery({
     variables: { addresses: contractAddresses },
-    initialFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
   });
 
   const isRefreshing = useSelector(

@@ -24,7 +24,7 @@ export const ContractHeader: React.FC<ContractHeaderProps> = ({
         chainId: contract.chainId,
       },
     },
-    initialFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
   });
 
   const metrics = useMemo(

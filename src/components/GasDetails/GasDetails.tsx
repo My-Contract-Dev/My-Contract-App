@@ -38,6 +38,7 @@ export const GasDetails: React.FC<GasDetailsProps> = ({ contract }) => {
         chainId: contract.chainId,
       },
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   const isRefreshing = useSelector(
