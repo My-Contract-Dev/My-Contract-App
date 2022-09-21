@@ -10,19 +10,22 @@ import MetricView from '../MetricView';
 type GlobalHeaderProps = ViewProps;
 
 export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ ...props }) => {
-  const contractAddresses = useSelector((state: RootState) =>
-    state.contractsList.contracts.map((c) => c.address)
+  const contracts = useSelector(
+    (state: RootState) => state.contractsList.contracts
   );
 
   const metricsData = useAccountMetricsQuery({
     variables: {
-      addresses: contractAddresses,
+      contracts: contracts.map((c) => ({
+        address: c.address,
+        chainId: c.chainId,
+      })),
     },
     fetchPolicy: 'cache-and-network',
   });
 
   const metrics = useMemo(() => {
-    return metricsData.data?.accountMetrics;
+    return metricsData.data?.accountMetricsV2;
   }, [metricsData.data]);
 
   return (

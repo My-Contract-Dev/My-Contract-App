@@ -26,8 +26,8 @@ export const AppApolloProvider: React.FC<{ children: ReactNode }> = ({
     }).then(() => {
       setClient(
         new ApolloClient({
-          // uri: 'https://api.mycontract.dev/graphql/',
-          uri: 'http://localhost:3000/graphql/',
+          uri: 'https://api.mycontract.dev/graphql/',
+          // uri: 'http://localhost:3000/graphql/',
           cache,
           defaultOptions: {
             query: {

@@ -10,12 +10,17 @@ export const useContractsList = (): RichContract[] => {
   const contracts = useSelector(
     (state: RootState) => state.contractsList.contracts
   );
-  const contractAddresses = useMemo(
-    () => contracts.map((c) => c.address),
-    [contracts]
-  );
+  // const contractAddresses = useMemo(
+  //   () => contracts.map((c) => c.address),
+  //   [contracts]
+  // );
   const metricsData = useAccountMetricsQuery({
-    variables: { addresses: contractAddresses },
+    variables: {
+      contracts: contracts.map((c) => ({
+        address: c.address,
+        chainId: c.chainId,
+      })),
+    },
     fetchPolicy: 'cache-and-network',
   });
 
@@ -47,9 +52,10 @@ export const useContractsList = (): RichContract[] => {
       return contracts;
     }
     return contracts.map<RichContract>((c) => {
-      const enhancedContract = metricsData.data?.accountMetrics.contracts.find(
-        (rc) => rc.address === c.address && rc.chainId === c.chainId
-      );
+      const enhancedContract =
+        metricsData.data?.accountMetricsV2.contracts.find(
+          (rc) => rc.address === c.address && rc.chainId === c.chainId
+        );
       if (enhancedContract?.name && enhancedContract?.name !== c.name) {
         dispatch(
           updateContractName({

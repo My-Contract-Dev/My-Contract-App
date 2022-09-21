@@ -1,5 +1,5 @@
-query AccountMetrics($addresses: [String!]!, $dateRange: [String!]) {
-  accountMetrics(addresses: $addresses, dateRange: $dateRange) {
+query AccountMetrics($contracts: [ContractInputDto!]!, $dateRange: [String!]) {
+  accountMetricsV2(contracts: $contracts, dateRange: $dateRange) {
     calls
     users
     balanceInUsd
